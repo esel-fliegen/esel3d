@@ -6,18 +6,24 @@ class DashBoard {
     this.advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
     this.grid = new BABYLON.GUI.Grid();
     this.gbox = new BABYLON.GUI.Rectangle();
+    this.titleGrid = new BABYLON.GUI.Grid();
     this.advancedTexture.addControl(this.gbox);
     this.advancedTexture.addControl(this.grid);
     this.DBcolor = props.worldData.DBColor;
+    this.backgroundColor = props.worldData.backgroundColor;
+    this.titleWidth = `${props.worldData.titleWidth}px`;
     this.gridWidth = "250px";
     this.gridOpenHeight = "310px";
     this.gboxOpenHeight = "160px";
     this.gridClosedHeight = "30px";
+    this.fontSize = "15px";
     this.DBGrid();
+    this.TitleGrid();
     this.DBBox();
     this.addColumnRow();
     this.OpenCloseButton();
     this.header();
+    this.titleBlock(props.worldData.title);
     
   }
   
@@ -30,6 +36,14 @@ class DashBoard {
     this.advancedTexture.addControl(this.grid);
   }
 
+  TitleGrid(){
+    this.titleGrid.backgroundColor = this.backgroundColor;
+    this.titleGrid.width = this.titleWidth;
+    this.titleGrid.height = "30px";
+    this.titleGrid.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
+    this.titleGrid.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+    this.advancedTexture.addControl(this.titleGrid);
+  }
   DBBox(){    
     this.gbox.width = this.gridWidth;
     this.gbox.height = this.gridClosedHeight;
@@ -72,6 +86,19 @@ class DashBoard {
 
     this.grid.addControl(this.tb2, 0, 1);           
     this.grid.addControl(cmdText, 0, 0);   
+  }
+
+  titleBlock(title){
+    var titleText = new BABYLON.GUI.TextBlock();
+    console.log(title)
+    titleText.text = title;
+    titleText.width = this.titleWidth;
+    titleText.height = "60px";
+    titleText.color = this.DBcolor;
+    titleText.fontSize = "15";
+    titleText.textWrapping = true;
+    titleText.fontFamily = "Helvetica";
+    this.titleGrid.addControl(titleText, 0);
   }
 }
 
