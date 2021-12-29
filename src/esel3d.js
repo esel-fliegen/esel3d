@@ -384,6 +384,7 @@ class RectGridClass {
     this.resolution = props.gridData.resolution;
     this.size = 3;
     this.gridColr = props.gridData.gridColor;
+    this.axisData = props.gridData.axisData;
     this.xyPlane();
     this.xzPlane();
     this.yzPlane();
@@ -391,7 +392,7 @@ class RectGridClass {
     this.yNum();
     this.zNum();
     this.showAxis(props.gridData.axisData);
-    this.axisData = props.gridData.axisData;
+    
   }
 
   xyPlane(){
