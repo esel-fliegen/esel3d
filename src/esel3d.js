@@ -56,6 +56,8 @@ class DashBoard {
   addColumnRow(){
     this.grid.addColumnDefinition(150,true);
     this.grid.addColumnDefinition(100, true);  
+    this.titleGrid.addColumnDefinition(this.titleWidth, true);
+    this.titleGrid.addRowDefinition(30, true);
     this.grid.addRowDefinition(40, true);
     this.grid.addRowDefinition(30, true);
     this.grid.addRowDefinition(30, true);
@@ -97,7 +99,7 @@ class DashBoard {
     titleText.height = "30px";
     titleText.color = this.DBcolor;
     titleText.fontSize = "15";
-    titleText.textWrapping = true;
+    titleText.textWrapping = false;
     titleText.fontFamily = "Helvetica";
     this.titleGrid.addControl(titleText, 0);
   }
@@ -575,7 +577,7 @@ class locatorClass {
     this.scene = props.scene;    
     this.ballMat = new BABYLON.StandardMaterial("locator", this.scene);
     this.ball = new BABYLON.MeshBuilder.CreateSphere("locator",
-      {diameter: 0.15}, this.scene);       
+      {diameter: 0.10}, this.scene);       
     this.utilLayer = new BABYLON.UtilityLayerRenderer(this.scene);
     this.gizmo = new BABYLON.PositionGizmo(this.utilLayer);
     this.advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
