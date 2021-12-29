@@ -43,7 +43,7 @@ class BLoader:
       
         <script type="module">
             
-        import {DBControl, Axis, World, RectGridClass, Rect3D, locatorClass} from 'https://cdn.jsdelivr.net/gh/esel-fliegen/esel3d@0.1.2/src/esel3d.js';
+        import {DBControl, Axis, World, RectGridClass, Rect3D, locatorClass} from 'https://cdn.jsdelivr.net/gh/esel-fliegen/esel3d@0.1.3/src/esel3d.js';
         
             var canvas = document.getElementById("renderCanvas");
             const engine = new BABYLON.Engine(canvas, true);  
@@ -82,9 +82,9 @@ class BLoader:
             backgroundColor: bgColor,
             DBColor:dbColor,
             title:Data.title,
-            titleWidth:Data.title.length * 15,
+            titleWidth:Data.title.length * 12.5,
             }
-        
+            console.log
             var grid = new RectGridClass({scene,gridData});  
             var curve = new Rect3D({scene, solution, resolution});
             var db = DBControl({scene, worldData});

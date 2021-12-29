@@ -483,21 +483,21 @@ class RectGridClass {
 
   xNum(){
     for(let i = this.xi; i <= this.xf; i+=this.resolution){
-      var xChar = this.makeTextPlane(`${i}`, "red", this.size /5, false);
+      var xChar = this.makeTextPlane(`${i}`, axisData.xColor, this.size /5, false);
       xChar.position = new BABYLON.Vector3(i+0.1, 0, -this.resolution/2);
     }
   }
   yNum(){
     for(let i = this.yi; i <= this.yf; i+=this.resolution){
       if(i===0){continue;}
-      var yChar = this.makeTextPlane(`${i}`, "green", this.size /5, false);
+      var yChar = this.makeTextPlane(`${i}`, axisData.yColor, this.size /5, false);
       yChar.position = new BABYLON.Vector3( 0, i+0.1, -this.resolution/2);
     }
   }
 
   zNum(){
     for(let i = this.zi; i <= this.zf; i+=this.resolution){
-      var zChar = this.makeTextPlane(`${i}`, "blue", this.size /5, 
+      var zChar = this.makeTextPlane(`${i}`, axisData.zColor, this.size /5, 
         new BABYLON.Vector3(0, -1, 0));
       zChar.position = new BABYLON.Vector3( this.xmax+this.resolution/2, 0, i+0.1);
     }
