@@ -92,7 +92,6 @@ class DashBoard {
 
   titleBlock(title){
     var titleText = new BABYLON.GUI.TextBlock();
-    console.log(title)
     titleText.text = title;
     titleText.width = this.titleWidth;
     titleText.backgroundColor = this.backgroundColor;
@@ -174,7 +173,6 @@ var worldControl = (props) =>{
 
   window.addEventListener("resize", function () {
         world.engine.resize();
-        console.log("resize")
   });
 }
 
@@ -563,7 +561,6 @@ class RectGridClass {
     return this.alpha;
   }
   setAlpha(a){
-    console.log(a);
     this.alpha = a;
   }
   render(){

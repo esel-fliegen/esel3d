@@ -82,7 +82,7 @@ class BLoader:
             backgroundColor: bgColor,
             DBColor:dbColor,
             title:Data.title,
-            titleWidth:Data.title.length * 10,
+            titleWidth:Data.title.length * 15,
             }
         
             var grid = new RectGridClass({scene,gridData});  
