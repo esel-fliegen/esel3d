@@ -93,7 +93,8 @@ class DashBoard {
     console.log(title)
     titleText.text = title;
     titleText.width = this.titleWidth;
-    titleText.height = "60px";
+    titleText.backgroundColor = this.backgroundColor;
+    titleText.height = "30px";
     titleText.color = this.DBcolor;
     titleText.fontSize = "15";
     titleText.textWrapping = true;
