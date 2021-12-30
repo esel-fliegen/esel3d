@@ -1,6 +1,8 @@
 from IPython.core.display import display
 from IPython.display import HTML
 
+import numpy as np
+
 class BLoader:
     def __init__(self, backgroundColor=(1, 1, 1)):
         self.backgroundColor = backgroundColor
@@ -43,7 +45,7 @@ class BLoader:
       
         <script type="module">
             
-        import {DBControl, Axis, World, RectGridClass, Rect3D, locatorClass} from 'https://cdn.jsdelivr.net/gh/esel-fliegen/esel3d@0.1.5/src/esel3d.js';
+        import {DBControl, Axis, World, RectGridClass, Rect3D, locatorClass} from 'https://cdn.jsdelivr.net/gh/esel-fliegen/esel3d@0.1.6/src/esel3d.js';
         
             var canvas = document.getElementById("renderCanvas");
             const engine = new BABYLON.Engine(canvas, true);  
@@ -93,13 +95,85 @@ class BLoader:
   )
 
 
-class plot3d:
-    def __init__(self, data):
-        self.bg = BLoader()
 
-        
+
+class plot:
+    def __init__(self, data):
+        self.bg = BLoader()       
 
         display(HTML(self.bg.header()))
+        
+    
+    def surface(self, func, x, xi, xf, y, yi, yf, resolution):
+        soln, maxCurve, minCurve, range, zMax, zMin = init_data(func, x, xi, xf, y, yi, yf, resolution)
+        data = get_parameters(xinitial=xi, xfinal=xf, yinitial=yi, 
+            yfinal=yf,x=x,y=y,resolution=resolution,maxPoint=zMax,minPoint=zMin, solution=soln)
         display(HTML(self.bg.scene(data)))
 
-    
+def init_data(func, x, xi, xf, y, yi, yf, resolution):
+    dx = np.linspace(xi, xf, int(x/resolution+1))
+    dy = np.linspace(yi, yf, int(y/resolution+1))
+
+    soln = []
+    maxCurve = []
+    minCurve = []
+    range = []
+
+    for i in dy:
+        z = func(dx, i)
+        p = np.array(list(zip(dx, z, np.full((int(x/resolution),), i))))
+        temp = []
+        for j in p:
+            temp.append(j[1])
+            range.append(j[1])
+        maxCurve.append(p[temp.index(max(temp))].tolist())
+        minCurve.append(p[temp.index(min(temp))].tolist())
+        soln.append(p.tolist())
+    zMax = max(range)
+    zMin = min(range)
+    return soln, maxCurve, minCurve, range, zMax, zMin
+
+def get_parameters(
+    title="ESEL3D",
+    xinitial=0,
+    xfinal=0,
+    yinitial=0,
+    yfinal=0,
+    x=0,
+    y=0,
+    resolution=1,
+    solution=[],
+    maxPoint=0,
+    minPoint=0,
+    theme="dark",
+    xlabel="X",
+    ylabel="Y",
+    zlabel="Z",
+    xColor="red",
+    yColor="blue",
+    zColor="green",
+    ):
+    data = {
+        "title":title,
+        "xinitial":xinitial,
+        "xfinal":xfinal,
+        "yinitial":yinitial,
+        "yfinal":yfinal,
+        "x":x,
+        "y":y,
+        "resolution":resolution,
+        "solution":solution,
+        "maxPoint":maxPoint,
+        "minPoint":minPoint,
+        "theme":theme,
+        "axisConfig":{
+            "xlabel":xlabel,
+            "ylabel":ylabel,
+            "zlabel":zlabel,
+            "xColor":xColor,
+            "yColor":yColor,
+            "zColor":zColor,
+        }
+        
+    }
+    return data

@@ -297,7 +297,7 @@ var Axis =(props)=> {
         }
         let maxidx = tempminmax.indexOf(Math.max(...tempminmax));
         let minidx = tempminmax.indexOf(Math.min(...tempminmax));
-        //console.log(path.length)
+
         this.maxCurve.push(path[maxidx]);
         this.minCurve.push(path[minidx]); 
         this.paths.push(path);
