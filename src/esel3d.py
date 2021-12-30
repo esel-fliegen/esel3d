@@ -131,11 +131,11 @@ class plot3d:
 
     def surface(self, func, x, xi, xf, y, yi, yf, resolution):
         self.x = x
-        self.xi = xi
-        self.xf = xf
+        self.xinitial = xi
+        self.xfinal = xf
         self.y = y 
-        self.yi = yi 
-        self.yf = yf 
+        self.yinitial = yi 
+        self.yfinal = yf 
         self.resolution = resolution
                 
         self.init_data(func)
@@ -168,8 +168,8 @@ class plot3d:
         }
 
     def init_data(self, func):
-        dx = np.linspace(self.xi, self.xf, int(self.x/self.resolution+1))
-        dy = np.linspace(self.yi, self.yf, int(self.y/self.resolution+1))        
+        dx = np.linspace(self.xinitial, self.xfinal, int(self.x/self.resolution+1))
+        dy = np.linspace(self.yinitial, self.yfinal, int(self.y/self.resolution+1))        
 
         for i in dy:
             z = func(dx, i)
