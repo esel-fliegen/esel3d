@@ -283,13 +283,14 @@ var Axis =(props)=> {
       this.minCurve = [];
 
       this.drawLines();
-      if(this.plotSurface){
+      console.log(this.plotSurface)
+      if(this.plotSurface === true){
         this.drawRibbon();
       }
-      if(this.showMaxCurve){
+      if(this.showMaxCurve === true){
         this.drawMaxCurve();
       }
-      if(this.showMinCurve){
+      if(this.showMinCurve === true){
         this.drawMinCurve();
       }
       
