@@ -97,85 +97,90 @@ class BLoader:
 
 
 
-class plot:
+class plot3d:
     def __init__(self):
         self.bg = BLoader()       
-
+        self.title="ESEL3D"
+        self.xinitial=0
+        self.xfinal=0
+        self.yinitial=0
+        self.yfinal=0
+        self.x=0
+        self.y=0
+        self.resolution=1
+        self.gridStep=1
+        self.solution=[]
+        self.maxCurve = []
+        self.minCurve = []
+        self.range = []
+        self.maxPoint=0
+        self.minPoint=0
+        self.theme="dark"
+        self.xlabel="X"
+        self.ylabel="Y"
+        self.zlabel="Z"
+        self.xColor="red"
+        self.yColor="green"
+        self.zColor="blue"
+        self.data = {}
         display(HTML(self.bg.header()))
-        
     
+    def plot(self):
+        self.get_parameters()
+        display(HTML(self.bg.scene(self.data)))
+
     def surface(self, func, x, xi, xf, y, yi, yf, resolution):
-        soln, maxCurve, minCurve, range, zMax, zMin = init_data(func, x, xi, xf, y, yi, yf, resolution)
-        data = get_parameters(xinitial=xi, xfinal=xf, yinitial=yi, 
-            yfinal=yf,x=x,y=y,resolution=resolution,maxPoint=zMax,minPoint=zMin, solution=soln)
-        display(HTML(self.bg.scene(data)))
+        self.x = x
+        self.xi = xi
+        self.xf = xf
+        self.y = y 
+        self.yi = yi 
+        self.yf = yf 
+        self.resolution = resolution
+                
+        self.init_data(func)
+               
 
-def init_data(func, x, xi, xf, y, yi, yf, resolution):
-    dx = np.linspace(xi, xf, int(x/resolution+1))
-    dy = np.linspace(yi, yf, int(y/resolution+1))
-
-    soln = []
-    maxCurve = []
-    minCurve = []
-    range = []
-
-    for i in dy:
-        z = func(dx, i)
-        p = np.array(list(zip(dx, z, np.full((int(x/resolution),), i))))
-        temp = []
-        for j in p:
-            temp.append(j[1])
-            range.append(j[1])
-        maxCurve.append(p[temp.index(max(temp))].tolist())
-        minCurve.append(p[temp.index(min(temp))].tolist())
-        soln.append(p.tolist())
-    zMax = max(range)
-    zMin = min(range)
-    return soln, maxCurve, minCurve, range, zMax, zMin
-
-def get_parameters(
-    title="ESEL3D",
-    xinitial=0,
-    xfinal=0,
-    yinitial=0,
-    yfinal=0,
-    x=0,
-    y=0,
-    resolution=1,
-    gridStep=1,
-    solution=[],
-    maxPoint=0,
-    minPoint=0,
-    theme="dark",
-    xlabel="X",
-    ylabel="Y",
-    zlabel="Z",
-    xColor="red",
-    yColor="blue",
-    zColor="green",
-    ):
-    data = {
-        "title":title,
-        "xinitial":xinitial,
-        "xfinal":xfinal,
-        "yinitial":yinitial,
-        "yfinal":yfinal,
-        "x":x,
-        "y":y,
-        "resolution":resolution,
-        "gridStep":gridStep,
-        "solution":solution,
-        "maxPoint":maxPoint,
-        "minPoint":minPoint,
-        "theme":theme,
-        "axisConfig":{
-            "xlabel":xlabel,
-            "ylabel":ylabel,
-            "zlabel":zlabel,
-            "xColor":xColor,
-            "yColor":yColor,
-            "zColor":zColor,
+    def get_parameters(self):
+        self.data = {
+            "title":self.title,
+            "xinitial":self.xinitial,
+            "xfinal":self.xfinal,
+            "yinitial":self.yinitial,
+            "yfinal":self.yfinal,
+            "x":self.x,
+            "y":self.y,
+            "resolution":self.resolution,
+            "gridStep":self.gridStep,
+            "solution":self.solution,
+            "maxPoint":self.maxPoint,
+            "minPoint":self.minPoint,
+            "theme":self.theme,
+            "axisConfig":{
+                "xlabel":self.xlabel,
+                "ylabel":self.ylabel,
+                "zlabel":self.zlabel,
+                "xColor":self.xColor,
+                "yColor":self.yColor,
+                "zColor":self.zColor,
+            }            
         }
+
+    def init_data(self, func):
+        dx = np.linspace(self.xi, self.xf, int(self.x/self.resolution+1))
+        dy = np.linspace(self.yi, self.yf, int(self.y/self.resolution+1))        
+
+        for i in dy:
+            z = func(dx, i)
+            p = np.array(list(zip(dx, z, np.full((int(self.x/self.resolution),), i))))
+            temp = []
+            for j in p:
+                temp.append(j[1])
+                self.range.append(j[1])
+            self.maxCurve.append(p[temp.index(max(temp))].tolist())
+            self.minCurve.append(p[temp.index(min(temp))].tolist())
+            self.solution.append(p.tolist())
+        self.maxPoint = max(range)
+        self.minPoint = min(range)
         
-    }
-    return data
+
