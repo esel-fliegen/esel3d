@@ -45,7 +45,7 @@ class BLoader:
       
         <script type="module">
             
-        import {DBControl, Axis, World, RectGridClass, Rect3D, locatorClass} from 'https://cdn.jsdelivr.net/gh/esel-fliegen/esel3d@0.1.7/src/esel3d.js';
+        import {DBControl, Axis, World, RectGridClass, Rect3D, locatorClass} from 'https://cdn.jsdelivr.net/gh/esel-fliegen/esel3d@0.1.8/src/esel3d.js';
         
             var canvas = document.getElementById("renderCanvas");
             const engine = new BABYLON.Engine(canvas, true);  
@@ -54,6 +54,7 @@ class BLoader:
             const Data = %s;
             const solution = Data.solution;
             const resolution = Data.resolution;
+            const showPlots = Data.plots;
 
             var gridColor = new BABYLON.Color3(1, 1, 1);
             var bgColor = new BABYLON.Color3(0,0,0);
@@ -88,7 +89,7 @@ class BLoader:
             }
             console.log
             var grid = new RectGridClass({scene,gridData});  
-            var curve = new Rect3D({scene, solution, resolution});
+            var curve = new Rect3D({scene, solution, resolution, showPlots});
             var db = DBControl({scene, worldData});
         </script>
 		""" % str(x)
@@ -111,6 +112,10 @@ class plot3d:
         self.gridStep=1
         self.solution=[]
         self.maxCurve = []
+        self.showMaxCurve = False
+        self.showMinCurve = False 
+        self.plotSurface = False 
+        self.plotLines = False 
         self.minCurve = []
         self.range = []
         self.maxPoint=0
@@ -158,15 +163,20 @@ class plot3d:
             self.zGridStep = kwargs.get('zGridStep')
 
 
-    def surface(self, func, x, xi, xf, y, yi, yf, resolution):
-        self.x = x
-        self.xinitial = xi
-        self.xfinal = xf
-        self.y = y 
-        self.yinitial = yi 
-        self.yfinal = yf 
+    def surface(self, func, x, y, resolution, **kwargs):
+        self.x = x[0]
+        self.xinitial = x[1]
+        self.xfinal = x[2]
+        self.y = y[0] 
+        self.yinitial = y[1]
+        self.yfinal = y[2]
         self.resolution = resolution
-                
+        if kwargs.get('showMaxCurve') != None:
+            self.showMaxCurve = kwargs.get('showMaxCurve')
+        if kwargs.get('showMinCurve') != None:
+            self.showMinCurve = kwargs.get('showMinCurve')
+        self.plotLines = True 
+        self.plotSurface = True
         self.init_data(func)
         print(self.solution)
                
@@ -181,7 +191,12 @@ class plot3d:
             "x":self.x,
             "y":self.y,
             "resolution":self.resolution,
-            "gridStep":self.gridStep,
+            "plots":{
+                "showMaxCurve":self.showMaxCurve,
+                "showMinCurve":self.showMinCurve,
+                "plotLines":self.plotLines,
+                "plotSurface":self.plotSurface,
+            },
             "solution":self.solution,
             "maxPoint":self.maxPoint,
             "minPoint":self.minPoint,
