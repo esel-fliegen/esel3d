@@ -397,13 +397,13 @@ class RectGridClass {
 
   xyPlane(){
     var xy = [];      
-    for(let i = this.yi; i <= this.yf; i += this.resolution){
+    for(let i = this.yi; i <= this.yf; i += this.axisData.yGridStep){
       xy.push([
         new BABYLON.Vector3(this.xi, i, 0),
         new BABYLON.Vector3(this.xf, i, 0)
       ]);
     }
-   for(let i = this.xi; i <= this.xf; i += this.resolution){
+   for(let i = this.xi; i <= this.xf; i += this.axisData.xGridStep){
       xy.push([
         new BABYLON.Vector3(i, this.yi, 0),
         new BABYLON.Vector3(i, this.yf, 0),        
@@ -422,13 +422,13 @@ class RectGridClass {
 
   xzPlane(){
     var xz = [];
-    for(let i = this.xi; i <= this.xf; i += this.resolution){
+    for(let i = this.xi; i <= this.xf; i += this.axisData.xGridStep){
       xz.push([
         new BABYLON.Vector3(i, 0, this.zi),
         new BABYLON.Vector3(i, 0, this.zf)
       ]);
     }
-    for(let i = this.zi; i <= this.zf; i += this.resolution){
+    for(let i = this.zi; i <= this.zf; i += this.axisData.zGridStep){
       xz.push([
         new BABYLON.Vector3(this.xi, 0, i),
         new BABYLON.Vector3(this.xf, 0, i)
@@ -445,13 +445,13 @@ class RectGridClass {
 
   yzPlane(){
     var yz = [];
-    for(let i = this.yi; i <= this.yf; i += this.resolution){
+    for(let i = this.yi; i <= this.yf; i += this.axisData.yGridStep){
       yz.push([
         new BABYLON.Vector3(0, i, this.zi),
         new BABYLON.Vector3(0, i, this.zf)
       ])
     }
-    for(let i = this.zi; i <= this.zf; i += this.resolution){
+    for(let i = this.zi; i <= this.zf; i += this.axisData.zGridStep){
       yz.push([
         new BABYLON.Vector3(0, this.yi, i),
         new BABYLON.Vector3(0, this.yf, i)
@@ -484,13 +484,13 @@ class RectGridClass {
   }
 
   xNum(){
-    for(let i = this.xi; i <= this.xf; i+=this.resolution){
+    for(let i = this.xi; i <= this.xf; i+=this.axisData.xGridStep){
       var xChar = this.makeTextPlane(`${i}`, this.axisData.xColor, this.size /5, false);
       xChar.position = new BABYLON.Vector3(i+0.1, 0, -this.resolution/2);
     }
   }
   yNum(){
-    for(let i = this.yi; i <= this.yf; i+=this.resolution){
+    for(let i = this.yi; i <= this.yf; i+=this.axisData.yGridStep){
       if(i===0){continue;}
       var yChar = this.makeTextPlane(`${i}`, this.axisData.yColor, this.size /5, false);
       yChar.position = new BABYLON.Vector3( 0, i+0.1, -this.resolution/2);
@@ -498,7 +498,7 @@ class RectGridClass {
   }
 
   zNum(){
-    for(let i = this.zi; i <= this.zf; i+=this.resolution){
+    for(let i = this.zi; i <= this.zf; i+=this.axisData.zGridStep){
       var zChar = this.makeTextPlane(`${i}`, this.axisData.zColor, this.size /5, 
         new BABYLON.Vector3(0, -1, 0));
       zChar.position = new BABYLON.Vector3( this.xmax+this.resolution/2, 0, i+0.1);

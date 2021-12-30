@@ -122,12 +122,41 @@ class plot3d:
         self.xColor="red"
         self.yColor="green"
         self.zColor="blue"
+        self.xGridStep=1
+        self.yGridStep=1
+        self.zGridStep=1
         self.data = {}
         display(HTML(self.bg.header()))
     
     def plot(self):
         self.get_parameters()
         display(HTML(self.bg.scene(self.data)))
+
+    def xAxis(self, **kwargs):
+
+        if kwargs.get('xlabel') != None:
+            self.xlabel = kwargs.get('xlabel')
+        if kwargs.get('xColor') !=None:
+            self.xColor = kwargs.get('xColor')
+        if kwargs.get('xGridStep') != None:
+            self.xGridStep = kwargs.get('xGridStep')
+
+    def yAxis(self, **kwargs):
+        if kwargs.get('ylabel') != None:
+            self.ylabel = kwargs.get('ylabel')
+        if kwargs.get('yColor') !=None:
+            self.yColor = kwargs.get('yColor')
+        if kwargs.get('yGridStep') != None:
+            self.yGridStep = kwargs.get('yGridStep')
+
+    def zAxis(self, **kwargs):
+        if kwargs.get('zlabel') != None:
+            self.zlabel = kwargs.get('zlabel')
+        if kwargs.get('zColor') !=None:
+            self.zColor = kwargs.get('zColor')
+        if kwargs.get('zGridStep') != None:
+            self.zGridStep = kwargs.get('zGridStep')
+
 
     def surface(self, func, x, xi, xf, y, yi, yf, resolution):
         self.x = x
@@ -164,6 +193,9 @@ class plot3d:
                 "xColor":self.xColor,
                 "yColor":self.yColor,
                 "zColor":self.zColor,
+                "xGridStep":self.xGridStep,
+                "yGridStep":self.yGridStep,
+                "zGridStep":self.zGridStep,
             }            
         }
 
