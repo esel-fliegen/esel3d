@@ -45,7 +45,7 @@ class BLoader:
       
         <script type="module">
             
-        import {DBControl, Axis, World, RectGridClass, Rect3D, locatorClass} from 'https://cdn.jsdelivr.net/gh/esel-fliegen/esel3d@0.1.10/src/esel3d.js';
+        import {DBControl, Axis, World, RectGridClass, Rect3D, locatorClass} from 'https://cdn.jsdelivr.net/gh/esel-fliegen/esel3d@0.1.11/src/esel3d.js';
         
             var canvas = document.getElementById("renderCanvas");
             const engine = new BABYLON.Engine(canvas, true);  
@@ -112,10 +112,10 @@ class plot3d:
         self.gridStep=1
         self.solution=[]
         self.maxCurve = []
-        self.showMaxCurve = False
-        self.showMinCurve = False 
-        self.plotSurface = False 
-        self.plotLines = False 
+        self.showMaxCurve = 0
+        self.showMinCurve = 0 
+        self.plotSurface = 0 
+        self.plotLines = 0 
         self.minCurve = []
         self.range = []
         self.maxPoint=0
@@ -175,8 +175,8 @@ class plot3d:
             self.showMaxCurve = kwargs.get('showMaxCurve')
         if kwargs.get('showMinCurve') != None:
             self.showMinCurve = kwargs.get('showMinCurve')
-        self.plotLines = True 
-        self.plotSurface = True
+        self.plotLines = 1 
+        self.plotSurface = 1
         self.init_data(func)
         print(self.solution)
                
