@@ -139,6 +139,7 @@ class plot3d:
         self.resolution = resolution
                 
         self.init_data(func)
+        print(self.solution)
                
 
     def get_parameters(self):
@@ -180,7 +181,7 @@ class plot3d:
             self.maxCurve.append(p[temp.index(max(temp))].tolist())
             self.minCurve.append(p[temp.index(min(temp))].tolist())
             self.solution.append(p.tolist())
-        self.maxPoint = max(range)
-        self.minPoint = min(range)
+        self.maxPoint = max(self.range)
+        self.minPoint = min(self.range)
         
 
