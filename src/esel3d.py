@@ -67,17 +67,17 @@ class BLoader:
 
             const gridData = {
             xmin: Data.xinitial,
-            ymin: Data.umin,
-            zmin: Data.tinitial,
+            ymin: Data.minPoint,
+            zmin: Data.yinitial,
             xmax: Data.xfinal,
-            ymax: Data.umax,
-            zmax: Data.tfinal,
-            resolution: 0.5,
+            ymax: Data.maxPoint,
+            zmax: Data.yfinal,
+            resolution: resolution,
             alpha: 0.5,
             gridColor: gridColor,
             axisData: Data.axisConfig,
             }
-            const dz = Data.tfinal - Data.tinitial;
+            const dz = Data.yfinal - Data.yinitial;
 
             const worldData = {
             cameraDist: dz,
@@ -98,7 +98,7 @@ class BLoader:
 
 
 class plot:
-    def __init__(self, data):
+    def __init__(self):
         self.bg = BLoader()       
 
         display(HTML(self.bg.header()))
