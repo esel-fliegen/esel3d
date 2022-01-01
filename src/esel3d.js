@@ -283,7 +283,7 @@ var Axis =(props)=> {
       this.minCurve = [];
 
       this.drawLines();
-      console.log(this.plotSurface)
+
       if(this.plotSurface === 1){
         this.drawRibbon();
       }
@@ -361,7 +361,7 @@ class World {
     this.camera = new BABYLON.ArcRotateCamera("ArcRotateCamera", -.85, .8, cameraDist, 
       new BABYLON.Vector3(0, 0, 0), this.scene);
     this.camera.attachControl(this.canvas, true);
-    this.camera.wheelPrecision = 10;
+    this.camera.wheelPrecision = 5;
   }
   Background(color){
     this.scene.clearColor = color;
@@ -505,7 +505,7 @@ class RectGridClass {
   xNum(){
     const decimalPlaces = this.countDecimals(this.axisData.xGridStep)
     for(let i = this.xi; i <= this.xf; i+=this.axisData.xGridStep){
-      var xChar = this.makeTextPlane(`${i.toFixed(decimalPlaces)}`, this.axisData.xColor, this.size /5, false);
+      var xChar = this.makeTextPlane(`${i.toFixed(decimalPlaces)}`, this.axisData.xColor, this.size /(5*decimalPlaces), false);
       xChar.position = new BABYLON.Vector3(i+0.1, 0, -this.axisData.xGridStep/2);
     }
   }
@@ -513,7 +513,7 @@ class RectGridClass {
     const decimalPlaces = this.countDecimals(this.axisData.yGridStep)
     for(let i = this.yi; i <= this.yf; i+=this.axisData.yGridStep){
       if(i===0){continue;}
-      var yChar = this.makeTextPlane(`${i.toFixed(decimalPlaces)}`, this.axisData.yColor, this.size /5, false);
+      var yChar = this.makeTextPlane(`${i.toFixed(decimalPlaces)}`, this.axisData.yColor, this.size /(5*decimalPlaces), false);
       yChar.position = new BABYLON.Vector3( 0, i+0.1, -this.axisData.yGridStep/2);
     }
   }
@@ -521,7 +521,7 @@ class RectGridClass {
   zNum(){
     const decimalPlaces = this.countDecimals(this.axisData.zGridStep)
     for(let i = this.zi; i <= this.zf; i+=this.axisData.zGridStep){
-      var zChar = this.makeTextPlane(`${i.toFixed(decimalPlaces)}`, this.axisData.zColor, this.size /5, 
+      var zChar = this.makeTextPlane(`${i.toFixed(decimalPlaces)}`, this.axisData.zColor, this.size /(5*decimalPlaces), 
         new BABYLON.Vector3(0, -1, 0));
       zChar.position = new BABYLON.Vector3( this.xmax+this.axisData.zGridStep/2, 0, i+0.1);
     }

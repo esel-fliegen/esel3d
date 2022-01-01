@@ -45,7 +45,7 @@ class BLoader:
       
         <script type="module">
             
-        import {DBControl, Axis, World, RectGridClass, Rect3D, locatorClass} from 'https://cdn.jsdelivr.net/gh/esel-fliegen/esel3d@0.1.12/src/esel3d.js';
+        import {DBControl, Axis, World, RectGridClass, Rect3D, locatorClass} from 'https://cdn.jsdelivr.net/gh/esel-fliegen/esel3d@0.1.13/src/esel3d.js';
         
             var canvas = document.getElementById("renderCanvas");
             const engine = new BABYLON.Engine(canvas, true);  
@@ -60,7 +60,7 @@ class BLoader:
             var bgColor = new BABYLON.Color3(0,0,0);
             var dbColor = "yellow";
 
-            if(Data.backgroundColor==="light"){
+            if(Data.theme==="light"){
             gridColor = new BABYLON.Color3(0, 0, 0);
             bgColor = new BABYLON.Color3(1, 1, 1);
             dbColor = "black";
@@ -87,7 +87,7 @@ class BLoader:
             title:Data.title,
             titleWidth:Data.title.length * 12.5,
             }
-            console.log
+  
             var grid = new RectGridClass({scene,gridData});  
             var curve = new Rect3D({scene, solution, resolution, showPlots});
             var db = DBControl({scene, worldData});
@@ -178,7 +178,6 @@ class plot3d:
         self.plotLines = 1 
         self.plotSurface = 1
         self.init_data(func)
-        print(self.solution)
                
 
     def get_parameters(self):
@@ -220,7 +219,7 @@ class plot3d:
 
         for i in dy:
             z = func(dx, i)
-            p = np.array(list(zip(dx, z, np.full((int(self.x/self.resolution),), i))))
+            p = np.array(list(zip(dx, z, np.full((int(self.x/self.resolution+1),), i))))
             temp = []
             for j in p:
                 temp.append(j[1])
