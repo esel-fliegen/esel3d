@@ -122,8 +122,8 @@ class plot3d:
         self.minPoint=0
         self.theme="dark"
         self.xlabel="X"
-        self.ylabel="Y"
-        self.zlabel="Z"
+        self.ylabel="Z"
+        self.zlabel="Y"
         self.xColor="red"
         self.yColor="green"
         self.zColor="blue"

@@ -239,15 +239,15 @@ var Axis =(props)=> {
    
    
   var axisX = BABYLON.Mesh.CreateLines("axisX", [ 
-    new BABYLON.Vector3.Zero(), new BABYLON.Vector3(size, 0, 0), new BABYLON.Vector3(size * 0.95, 0.05 * size, 0), 
-    new BABYLON.Vector3(size, 0, 0), new BABYLON.Vector3(size * 0.95, -0.05 * size, 0)
+    new BABYLON.Vector3(0, 0, this.axisData.zmin), new BABYLON.Vector3(size, 0, this.axisData.zmin), new BABYLON.Vector3(size * 0.95, 0.05 * size, this.axisData.zmin), 
+    new BABYLON.Vector3(size, 0, this.axisData.zmin), new BABYLON.Vector3(size * 0.95, -0.05 * size, this.axisData.zmin)
     ], scene);
   axisX.color = new BABYLON.Color3(1, 0, 0);
   var xChar = makeTextPlane(axisData.xlabel, axisData.xColor, size / 5);
   xChar.position = new BABYLON.Vector3(0.9 * size, 0.1 * size, 0);
   var axisY = BABYLON.Mesh.CreateLines("axisY", [
-      new BABYLON.Vector3.Zero(), new BABYLON.Vector3(0, size, 0), new BABYLON.Vector3( -0.05 * size, size * 0.95, 0), 
-      new BABYLON.Vector3(0, size, 0), new BABYLON.Vector3( 0.05 * size, size * 0.95, 0)
+      new BABYLON.Vector3(0, 0, this.axisData.zmin), new BABYLON.Vector3(0, size, this.axisData.zmin), new BABYLON.Vector3( -0.05 * size, size * 0.95, this.axisData.zmin), 
+      new BABYLON.Vector3(0, size, this.axisData.zmin), new BABYLON.Vector3( 0.05 * size, size * 0.95, this.axisData.zmin)
       ], scene);
   axisY.color = new BABYLON.Color3(0, 1, 0);
   var yChar = makeTextPlane(axisData.ylabel, axisData.yColor, size / 5);
@@ -361,7 +361,7 @@ class World {
     this.camera = new BABYLON.ArcRotateCamera("ArcRotateCamera", -.85, .8, cameraDist, 
       new BABYLON.Vector3(0, 0, 0), this.scene);
     this.camera.attachControl(this.canvas, true);
-    this.camera.wheelPrecision = 5;
+    this.camera.wheelPrecision = 20;
   }
   Background(color){
     this.scene.clearColor = color;
