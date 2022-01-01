@@ -253,7 +253,7 @@ var Axis =(props)=> {
   var yChar = makeTextPlane(axisData.ylabel, axisData.yColor, size / 5);
   yChar.position = new BABYLON.Vector3(0, 0.9 * size, 0.1 * size);
   var axisZ = BABYLON.Mesh.CreateLines("axisZ", [
-      new BABYLON.Vector3.Zero(), new BABYLON.Vector3(0, 0, size), new BABYLON.Vector3( 0 , -0.05 * size, size * 0.95),
+      new BABYLON.Vector3(0, 0, axisData.zmin/5), new BABYLON.Vector3(0, 0, size), new BABYLON.Vector3( 0 , -0.05 * size, size * 0.95),
       new BABYLON.Vector3(0, 0, size), new BABYLON.Vector3( 0, 0.05 * size, size * 0.95)
       ], scene);
   axisZ.color = new BABYLON.Color3(0, 0, 1);
@@ -507,7 +507,7 @@ class RectGridClass {
     //var fontSize = 15/decimalPlaces;
     for(let i = this.xi; i <= this.xf; i+=this.axisData.xGridStep){
       var xChar = this.makeTextPlane(`${i.toFixed(decimalPlaces)}`, this.axisData.xColor, this.size /(5*decimalPlaces), false);
-      xChar.position = new BABYLON.Vector3(i+0.1, 0, -this.axisData.xGridStep/2);
+      xChar.position = new BABYLON.Vector3(i+0.1, 0, this.axisData.zmin-0.25);
     }
   }
   yNum(){
@@ -516,7 +516,7 @@ class RectGridClass {
     for(let i = this.yi; i <= this.yf; i+=this.axisData.yGridStep){
       if(i===0){continue;}
       var yChar = this.makeTextPlane(`${i.toFixed(decimalPlaces)}`, this.axisData.yColor, this.size /(5*decimalPlaces),  false);
-      yChar.position = new BABYLON.Vector3( 0, i+0.1, -this.axisData.yGridStep/2);
+      yChar.position = new BABYLON.Vector3( 0, i+0.1, this.axisData.zmin-0.25);
     }
   }
 
