@@ -201,6 +201,7 @@ class plot3d:
             "minPoint":self.minPoint,
             "theme":self.theme,
             "axisConfig":{
+                "zmin":self.yinitial,
                 "xlabel":self.xlabel,
                 "ylabel":self.ylabel,
                 "zlabel":self.zlabel,
