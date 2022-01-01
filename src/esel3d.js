@@ -483,7 +483,7 @@ class RectGridClass {
   makeTextPlane(text, color, size, rotate, axisData){
     var dynamicTexture = new BABYLON.DynamicTexture("text", 50, this.scene, true);
     dynamicTexture.hasAlpha = true;
-    dynamicTexture.drawText(text, 10, 40, `${fontSize}px Arial`, color, "transparent", true);
+    dynamicTexture.drawText(text, 10, 40, "15px Arial", color, "transparent", true);
     var plane = BABYLON.Mesh.CreatePlane("textplane", size, this.scene, true);
     var planeMat = new BABYLON.StandardMaterial("textplanematerial", this.scene);
     planeMat.alpha = this.numAlpha;
