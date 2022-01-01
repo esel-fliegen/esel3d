@@ -239,15 +239,15 @@ var Axis =(props)=> {
    
    
   var axisX = BABYLON.Mesh.CreateLines("axisX", [ 
-    new BABYLON.Vector3(0, 0, this.axisData.zmin), new BABYLON.Vector3(size, 0, this.axisData.zmin), new BABYLON.Vector3(size * 0.95, 0.05 * size, this.axisData.zmin), 
-    new BABYLON.Vector3(size, 0, this.axisData.zmin), new BABYLON.Vector3(size * 0.95, -0.05 * size, this.axisData.zmin)
+    new BABYLON.Vector3(0, 0, axisData.zmin), new BABYLON.Vector3(size, 0, axisData.zmin), new BABYLON.Vector3(size * 0.95, 0.05 * size, axisData.zmin), 
+    new BABYLON.Vector3(size, 0, axisData.zmin), new BABYLON.Vector3(size * 0.95, -0.05 * size, axisData.zmin)
     ], scene);
   axisX.color = new BABYLON.Color3(1, 0, 0);
   var xChar = makeTextPlane(axisData.xlabel, axisData.xColor, size / 5);
   xChar.position = new BABYLON.Vector3(0.9 * size, 0.1 * size, 0);
   var axisY = BABYLON.Mesh.CreateLines("axisY", [
-      new BABYLON.Vector3(0, 0, this.axisData.zmin), new BABYLON.Vector3(0, size, this.axisData.zmin), new BABYLON.Vector3( -0.05 * size, size * 0.95, this.axisData.zmin), 
-      new BABYLON.Vector3(0, size, this.axisData.zmin), new BABYLON.Vector3( 0.05 * size, size * 0.95, this.axisData.zmin)
+      new BABYLON.Vector3(0, 0, axisData.zmin), new BABYLON.Vector3(0, size, axisData.zmin), new BABYLON.Vector3( -0.05 * size, size * 0.95, axisData.zmin), 
+      new BABYLON.Vector3(0, size, axisData.zmin), new BABYLON.Vector3( 0.05 * size, size * 0.95, axisData.zmin)
       ], scene);
   axisY.color = new BABYLON.Color3(0, 1, 0);
   var yChar = makeTextPlane(axisData.ylabel, axisData.yColor, size / 5);
