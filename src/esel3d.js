@@ -361,7 +361,7 @@ class World {
     this.camera = new BABYLON.ArcRotateCamera("ArcRotateCamera", -.85, .8, cameraDist, 
       new BABYLON.Vector3(0, 0, 0), this.scene);
     this.camera.attachControl(this.canvas, true);
-    this.camera.wheelPrecision = 20;
+    this.camera.wheelPrecision = 5;
   }
   Background(color){
     this.scene.clearColor = color;
@@ -483,7 +483,7 @@ class RectGridClass {
   makeTextPlane(text, color, size, rotate, axisData){
     var dynamicTexture = new BABYLON.DynamicTexture("text", 50, this.scene, true);
     dynamicTexture.hasAlpha = true;
-    dynamicTexture.drawText(text, 10, 40, `${fontSize}px Arial`, color, "transparent", true);
+    dynamicTexture.drawText(text, 10, 40, "15px Arial", color, "transparent", true);
     var plane = BABYLON.Mesh.CreatePlane("textplane", size, this.scene, true);
     var planeMat = new BABYLON.StandardMaterial("textplanematerial", this.scene);
     planeMat.alpha = this.numAlpha;
@@ -524,7 +524,7 @@ class RectGridClass {
     const decimalPlaces = (this.countDecimals(this.axisData.zGridStep) > 0) ? this.countDecimals(this.axisData.xGridStep) : 1;
     //var fontSize = 15/decimalPlaces;
     for(let i = this.zi; i <= this.zf; i+=this.axisData.zGridStep){
-      var zChar = this.makeTextPlane(`${i.toFixed(decimalPlaces)}`, this.axisData.zColor, this.size /(5*decimalPlaces),
+      var zChar = this.makeTextPlane(`${i.toFixed(decimalPlaces)}`, this.axisData.zColor, this.size /(5*decimalPlaces), fontSize,
         new BABYLON.Vector3(0, -1, 0));
       zChar.position = new BABYLON.Vector3( this.xmax+this.axisData.zGridStep/2, 0, i+0.1);
     }
