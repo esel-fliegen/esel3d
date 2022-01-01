@@ -503,14 +503,14 @@ class RectGridClass {
     return 0;
   }
   xNum(){
-    const decimalPlaces = this.countDecimals(this.axisData.xGridStep)
+    const decimalPlaces = (this.countDecimals(this.axisData.yGridStep) > 0) ? this.countDecimals(this.axisData.yGridStep) : 1;
     for(let i = this.xi; i <= this.xf; i+=this.axisData.xGridStep){
       var xChar = this.makeTextPlane(`${i.toFixed(decimalPlaces)}`, this.axisData.xColor, this.size /(5*decimalPlaces), false);
       xChar.position = new BABYLON.Vector3(i+0.1, 0, -this.axisData.xGridStep/2);
     }
   }
   yNum(){
-    const decimalPlaces = this.countDecimals(this.axisData.yGridStep)
+    const decimalPlaces = (this.countDecimals(this.axisData.yGridStep) > 0) ? this.countDecimals(this.axisData.yGridStep) : 1;
     for(let i = this.yi; i <= this.yf; i+=this.axisData.yGridStep){
       if(i===0){continue;}
       var yChar = this.makeTextPlane(`${i.toFixed(decimalPlaces)}`, this.axisData.yColor, this.size /(5*decimalPlaces), false);
@@ -519,7 +519,7 @@ class RectGridClass {
   }
 
   zNum(){
-    const decimalPlaces = this.countDecimals(this.axisData.zGridStep)
+    const decimalPlaces = (this.countDecimals(this.axisData.yGridStep) > 0) ? this.countDecimals(this.axisData.yGridStep) : 1;
     for(let i = this.zi; i <= this.zf; i+=this.axisData.zGridStep){
       var zChar = this.makeTextPlane(`${i.toFixed(decimalPlaces)}`, this.axisData.zColor, this.size /(5*decimalPlaces), 
         new BABYLON.Vector3(0, -1, 0));
