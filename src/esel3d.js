@@ -257,7 +257,7 @@ var Axis =(props)=> {
       new BABYLON.Vector3(0, 0, size), new BABYLON.Vector3( 0, 0.05 * size, size * 0.95)
       ], scene);
   axisZ.color = new BABYLON.Color3(0, 0, 1);
-  var zChar = makeTextPlane(axisData.zlabel, axisData.zColor, size / 5, axisData.ylabel.length);
+  var zChar = makeTextPlane(axisData.zlabel, axisData.zColor, size / 5, axisData.zlabel.length);
   zChar.position = new BABYLON.Vector3(size, 0.05 * size, 0.9 * size);
  
   

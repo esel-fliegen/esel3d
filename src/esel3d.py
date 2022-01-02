@@ -45,7 +45,7 @@ class BLoader:
       
         <script type="module">
             
-        import {DBControl, Axis, World, RectGridClass, Rect3D, locatorClass} from 'https://cdn.jsdelivr.net/gh/esel-fliegen/esel3d@0.1.29/src/esel3d.js';
+        import {DBControl, Axis, World, RectGridClass, Rect3D, locatorClass} from 'https://cdn.jsdelivr.net/gh/esel-fliegen/esel3d@0.1.30/src/esel3d.js';
         
             var canvas = document.getElementById("renderCanvas");
             const engine = new BABYLON.Engine(canvas, true);  
@@ -139,7 +139,7 @@ class plot3d:
     def xAxis(self, **kwargs):
 
         if kwargs.get('xLabel') != None:
-            self.__xlabel = kwargs.get('xlabel')
+            self.__xlabel = kwargs.get('xLabel')
         if kwargs.get('xColor') !=None:
             self.__xColor = kwargs.get('xColor')
         if kwargs.get('xGridStep') != None:
@@ -147,7 +147,7 @@ class plot3d:
 
     def yAxis(self, **kwargs):
         if kwargs.get('yLabel') != None:
-            self.__zlabel = kwargs.get('ylabel')
+            self.__zlabel = kwargs.get('yLabel')
         if kwargs.get('yColor') !=None:
             self.__zColor = kwargs.get('yColor')
         if kwargs.get('yGridStep') != None:
@@ -158,7 +158,7 @@ class plot3d:
 
     def zAxis(self, **kwargs):
         if kwargs.get('zLabel') != None:
-            self.__ylabel = kwargs.get('zlabel')
+            self.__ylabel = kwargs.get('zLabel')
         if kwargs.get('zColor') !=None:
             self.__yColor = kwargs.get('zColor')
         if kwargs.get('zGridStep') != None:
