@@ -138,7 +138,7 @@ class plot3d:
 
     def xAxis(self, **kwargs):
 
-        if kwargs.get('xlabel') != None:
+        if kwargs.get('xLabel') != None:
             self.__xlabel = kwargs.get('xlabel')
         if kwargs.get('xColor') !=None:
             self.__xColor = kwargs.get('xColor')
@@ -146,20 +146,23 @@ class plot3d:
             self.__xGridStep = kwargs.get('xGridStep')
 
     def yAxis(self, **kwargs):
-        if kwargs.get('ylabel') != None:
-            self.__ylabel = kwargs.get('ylabel')
+        if kwargs.get('yLabel') != None:
+            self.__zlabel = kwargs.get('ylabel')
         if kwargs.get('yColor') !=None:
-            self.__yColor = kwargs.get('yColor')
+            self.__zColor = kwargs.get('yColor')
         if kwargs.get('yGridStep') != None:
-            self.__yGridStep = kwargs.get('yGridStep')
+            self.__zGridStep = kwargs.get('yGridStep')
+
+    def theme(self, theme):
+        self.theme = theme
 
     def zAxis(self, **kwargs):
-        if kwargs.get('zlabel') != None:
-            self.__zlabel = kwargs.get('zlabel')
+        if kwargs.get('zLabel') != None:
+            self.__ylabel = kwargs.get('zlabel')
         if kwargs.get('zColor') !=None:
-            self.__zColor = kwargs.get('zColor')
+            self.__yColor = kwargs.get('zColor')
         if kwargs.get('zGridStep') != None:
-            self.__zGridStep = kwargs.get('zGridStep')
+            self.__yGridStep = kwargs.get('zGridStep')
 
 
     def surface(self, func, x, y, resolution, **kwargs):
