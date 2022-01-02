@@ -523,8 +523,8 @@ class RectGridClass {
     const decimalPlaces = (this.countDecimals(this.axisData.zGridStep) > 0) ? this.countDecimals(this.axisData.xGridStep) : 1;
  
     for(let i = this.zi; i <= this.zf; i+=this.axisData.zGridStep){
-      var zChar = this.makeTextPlane(`${i.toFixed(decimalPlaces)}`, this.axisData.zColor, this.size /(5*decimalPlaces),
-        new BABYLON.Vector3(0, -1, 0));
+      var zChar = this.makeTextPlane(`${i.toFixed(decimalPlaces)}`, this.axisData.zColor, this.size /(5*decimalPlaces), false);
+        //new BABYLON.Vector3(0, -1, 0));
       zChar.position = new BABYLON.Vector3( this.xmax+this.axisData.zGridStep/2, 0, i+0.1);
     }
   }
