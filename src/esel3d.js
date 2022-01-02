@@ -234,6 +234,7 @@ var Axis =(props)=> {
   plane.material.backFaceCulling = false;
   plane.material.specularColor = new BABYLON.Color3(1, 1, 1);
   plane.material.diffuseTexture = dynamicTexture;
+  plane.billboardMode =  BABYLON.Mesh.BILLBOARDMODE_ALL;
   return plane;
    };
    
@@ -493,7 +494,7 @@ class RectGridClass {
     if(rotate){ plane.rotation = rotate;};
     plane.material.backFaceCulling = false;
     plane.material.diffuseTexture = dynamicTexture;
-    
+    plane.billboardMode =  BABYLON.Mesh.BILLBOARDMODE_ALL;
     return plane;
   }
 
