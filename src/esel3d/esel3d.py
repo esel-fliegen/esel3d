@@ -13,12 +13,13 @@ class BLoader:
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
         <script src="https://preview.babylonjs.com/babylon.js"></script>
+         <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
         <script src="https://preview.babylonjs.com/materialsLibrary/babylonjs.materials.min.js"></script>
         <script src="https://preview.babylonjs.com/proceduralTexturesLibrary/babylonjs.proceduralTextures.min.js"></script>
         <script src="https://preview.babylonjs.com/postProcessesLibrary/babylonjs.postProcess.min.js"></script>
         <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.js"></script>
         <script src="https://preview.babylonjs.com/serializers/babylonjs.serializers.min.js"></script>
-        <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
+       
 
         <style>
             html, body {
@@ -45,7 +46,7 @@ class BLoader:
       
         <script type="module">
             
-        import {DBControl, Axis, World, RectGridClass, Rect3D, locatorClass} from 'https://cdn.jsdelivr.net/gh/esel-fliegen/esel3d@0.1.34/src/esel3d/esel3d.js';
+        import {DBControl, Axis, World, RectGridClass, Rect3D, locatorClass} from 'https://cdn.jsdelivr.net/gh/esel-fliegen/esel3d@0.1.36/src/esel3d/esel3d.js';
         
             var canvas = document.getElementById("renderCanvas");
             const engine = new BABYLON.Engine(canvas, true);  
