@@ -53,7 +53,7 @@ class BLoader:
 
             const Data = %s;
             const solution = Data.solution;
-            const resolution = Data.resolution;
+            const plotResolution = Data.plotResolution;
             const showPlots = Data.plots;
 
             var gridColor = new BABYLON.Color3(1, 1, 1);
@@ -89,7 +89,7 @@ class BLoader:
             }
   
             var grid = new RectGridClass({scene,gridData});  
-            var curve = new Rect3D({scene, solution, resolution, showPlots});
+            var curve = new Rect3D({scene, solution, plotResolution, showPlots});
             var db = DBControl({scene, worldData});
         </script>
 		""" % str(x)
@@ -100,135 +100,134 @@ class BLoader:
 
 class plot3d:
     def __init__(self):
-        self.bg = BLoader()       
-        self.title="ESEL3D"
-        self.xinitial=0
-        self.xfinal=0
-        self.yinitial=0
-        self.yfinal=0
-        self.x=0
-        self.y=0
-        self.resolution=1
-        self.gridStep=1
-        self.solution=[]
-        self.maxCurve = []
-        self.showMaxCurve = 0
-        self.showMinCurve = 0 
-        self.plotSurface = 0 
-        self.plotLines = 0 
-        self.minCurve = []
-        self.range = []
-        self.maxPoint=0
-        self.minPoint=0
-        self.theme="dark"
-        self.xlabel="X"
-        self.ylabel="Z"
-        self.zlabel="Y"
-        self.xColor="red"
-        self.yColor="green"
-        self.zColor="blue"
-        self.xGridStep=1
-        self.yGridStep=1
-        self.zGridStep=1
-        self.data = {}
-        display(HTML(self.bg.header()))
+        self.__bg = BLoader()       
+        self.__title="ESEL3D"
+        self.__xinitial=0
+        self.__xfinal=0
+        self.__yinitial=0
+        self.__yfinal=0
+        self.__xDomain=0
+        self.__yDomain=0
+        self.__plotResolution=1
+        self.__solution=[]
+        self.__maxCurve = []
+        self.__minCurve = []
+        self.__showMaxCurve = 0
+        self.__showMinCurve = 0 
+        self.__plotSurface = 0 
+        self.__plotLines = 0         
+        self.__range = []
+        self.__maxPoint=0
+        self.__minPoint=0
+        self.__theme="dark"
+        self.__xlabel="X"
+        self.__ylabel="Z"
+        self.__zlabel="Y"
+        self.__xColor="red"
+        self.__yColor="green"
+        self.__zColor="blue"
+        self.__xGridStep=1
+        self.__yGridStep=1
+        self.__zGridStep=1
+        self.__data = {}
+        display(HTML(self.__bg.header()))
     
     def plot(self):
         self.get_parameters()
-        display(HTML(self.bg.scene(self.data)))
+        display(HTML(self.__bg.scene(self.__data)))
 
     def xAxis(self, **kwargs):
 
         if kwargs.get('xlabel') != None:
-            self.xlabel = kwargs.get('xlabel')
+            self.__xlabel = kwargs.get('xlabel')
         if kwargs.get('xColor') !=None:
-            self.xColor = kwargs.get('xColor')
+            self.__xColor = kwargs.get('xColor')
         if kwargs.get('xGridStep') != None:
-            self.xGridStep = kwargs.get('xGridStep')
+            self.__xGridStep = kwargs.get('xGridStep')
 
     def yAxis(self, **kwargs):
         if kwargs.get('ylabel') != None:
-            self.ylabel = kwargs.get('ylabel')
+            self.__ylabel = kwargs.get('ylabel')
         if kwargs.get('yColor') !=None:
-            self.yColor = kwargs.get('yColor')
+            self.__yColor = kwargs.get('yColor')
         if kwargs.get('yGridStep') != None:
-            self.yGridStep = kwargs.get('yGridStep')
+            self.__yGridStep = kwargs.get('yGridStep')
 
     def zAxis(self, **kwargs):
         if kwargs.get('zlabel') != None:
-            self.zlabel = kwargs.get('zlabel')
+            self.__zlabel = kwargs.get('zlabel')
         if kwargs.get('zColor') !=None:
-            self.zColor = kwargs.get('zColor')
+            self.__zColor = kwargs.get('zColor')
         if kwargs.get('zGridStep') != None:
-            self.zGridStep = kwargs.get('zGridStep')
+            self.__zGridStep = kwargs.get('zGridStep')
 
 
     def surface(self, func, x, y, resolution, **kwargs):
-        self.x = x[0]
-        self.xinitial = x[1]
-        self.xfinal = x[2]
-        self.y = y[0] 
-        self.yinitial = y[1]
-        self.yfinal = y[2]
-        self.resolution = resolution
+        self.__xDomain = x[0]
+        self.__xinitial = x[1]
+        self.__xfinal = x[2]
+        self.__yDomain = y[0] 
+        self.__yinitial = y[1]
+        self.__yfinal = y[2]
+        self.__plotResolution = resolution
         if kwargs.get('showMaxCurve') != None:
-            self.showMaxCurve = kwargs.get('showMaxCurve')
+            self.__showMaxCurve = kwargs.get('showMaxCurve')
         if kwargs.get('showMinCurve') != None:
-            self.showMinCurve = kwargs.get('showMinCurve')
-        self.plotLines = 1 
-        self.plotSurface = 1
+            self.__showMinCurve = kwargs.get('showMinCurve')
+        self.__plotLines = 1 
+        self.__plotSurface = 1
         self.init_data(func)
                
 
     def get_parameters(self):
-        self.data = {
-            "title":self.title,
-            "xinitial":self.xinitial,
-            "xfinal":self.xfinal,
-            "yinitial":self.yinitial,
-            "yfinal":self.yfinal,
-            "x":self.x,
-            "y":self.y,
-            "resolution":self.resolution,
+        self.__data = {
+            "title":self.__title,
+            "xinitial":self.__xinitial,
+            "xfinal":self.__xfinal,
+            "yinitial":self.__yinitial,
+            "yfinal":self.__yfinal,
+            "x":self.__xDomain,
+            "y":self.__yDomain,
+            "plotResolution":self.__plotResolution,
             "plots":{
-                "showMaxCurve":self.showMaxCurve,
-                "showMinCurve":self.showMinCurve,
-                "plotLines":self.plotLines,
-                "plotSurface":self.plotSurface,
+                "showMaxCurve":self.__showMaxCurve,
+                "showMinCurve":self.__showMinCurve,
+                "plotLines":self.__plotLines,
+                "plotSurface":self.__plotSurface,
             },
-            "solution":self.solution,
-            "maxPoint":self.maxPoint,
-            "minPoint":self.minPoint,
-            "theme":self.theme,
+            "solution":self.__solution,
+            "maxPoint":self.__maxPoint,
+            "minPoint":self.__minPoint,
+            "theme":self.__theme,
             "axisConfig":{
-                "zmin":self.yinitial,
-                "xlabel":self.xlabel,
-                "ylabel":self.ylabel,
-                "zlabel":self.zlabel,
-                "xColor":self.xColor,
-                "yColor":self.yColor,
-                "zColor":self.zColor,
-                "xGridStep":self.xGridStep,
-                "yGridStep":self.yGridStep,
-                "zGridStep":self.zGridStep,
+                "zmin":self.__yinitial,
+                "xlabel":self.__xlabel,
+                "ylabel":self.__ylabel,
+                "zlabel":self.__zlabel,
+                "xColor":self.__xColor,
+                "yColor":self.__yColor,
+                "zColor":self.__zColor,
+                "xGridStep":self.__xGridStep,
+                "yGridStep":self.__yGridStep,
+                "zGridStep":self.__zGridStep,
             }            
         }
 
     def init_data(self, func):
-        dx = np.linspace(self.xinitial, self.xfinal, int(self.x/self.resolution+1))
-        dy = np.linspace(self.yinitial, self.yfinal, int(self.y/self.resolution+1))        
+        dx = np.linspace(self.__xinitial, self.__xfinal, int(self.__xDomain/self.__plotResolution+1))
+        dy = np.linspace(self.__yinitial, self.__yfinal, int(self.__yDomain/self.__plotResolution+1))        
 
         for i in dy:
             z = func(dx, i)
-            p = np.array(list(zip(dx, z, np.full((int(self.x/self.resolution+1),), i))))
+            p = np.array(list(zip(dx, z, np.full((int(self.__xDomain/self.__plotResolution+1),), i))))
             temp = []
             for j in p:
                 temp.append(j[1])
-                self.range.append(j[1])
-            self.maxCurve.append(p[temp.index(max(temp))].tolist())
-            self.minCurve.append(p[temp.index(min(temp))].tolist())
-            self.solution.append(p.tolist())
-        self.maxPoint = max(self.range)
-        self.minPoint = min(self.range)
+                self.__range.append(j[1])
+            self.__maxCurve.append(p[temp.index(max(temp))].tolist())
+            self.__minCurve.append(p[temp.index(min(temp))].tolist())
+            self.__solution.append(p.tolist())
+        self.__maxPoint = max(self.__range)
+        self.__minPoint = min(self.__range)
         
 

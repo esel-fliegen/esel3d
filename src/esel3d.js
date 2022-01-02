@@ -225,11 +225,11 @@ var Axis =(props)=> {
 
   var { scene, size, axisData } = props;
 
-  var makeTextPlane = function(text, color, size) {
-  var dynamicTexture = new BABYLON.DynamicTexture("DynamicTexture", 50, scene, true);
+  var makeTextPlane = function(text, color, size, fontWidth) {
+  var dynamicTexture = new BABYLON.DynamicTexture("DynamicTexture", { width:50*fontWidth, height:50}, scene, true);
   dynamicTexture.hasAlpha = true;
-  dynamicTexture.drawText(text, 5, 40, "bold 36px Arial", color , "transparent", true);
-  var plane = new BABYLON.Mesh.CreatePlane("TextPlane", size, scene, true);
+  dynamicTexture.drawText(text, 5*Math.ceil(fontWidth*4.5), 40, "bold 36px Arial", color , "transparent", true);
+  var plane = new BABYLON.MeshBuilder.CreatePlane("TextPlane", {height:size, width:fontWidth/5, sideOrientation: MeshBuilder.DOUBLESIDE});
   plane.material = new BABYLON.StandardMaterial("TextPlaneMaterial", scene);
   plane.material.backFaceCulling = false;
   plane.material.specularColor = new BABYLON.Color3(1, 1, 1);
@@ -243,21 +243,21 @@ var Axis =(props)=> {
     new BABYLON.Vector3(size, 0, axisData.zmin), new BABYLON.Vector3(size * 0.95, -0.05 * size, axisData.zmin)
     ], scene);
   axisX.color = new BABYLON.Color3(1, 0, 0);
-  var xChar = makeTextPlane(axisData.xlabel, axisData.xColor, size / 5);
+  var xChar = makeTextPlane(axisData.xlabel, axisData.xColor, size / 5, axisData.xlabel.length);
   xChar.position = new BABYLON.Vector3(0.9 * size, 0.1 * size, axisData.zmin);
   var axisY = BABYLON.Mesh.CreateLines("axisY", [
       new BABYLON.Vector3(0, 0, axisData.zmin), new BABYLON.Vector3(0, size, axisData.zmin), new BABYLON.Vector3( -0.05 * size, size * 0.95, axisData.zmin), 
       new BABYLON.Vector3(0, size, axisData.zmin), new BABYLON.Vector3( 0.05 * size, size * 0.95, axisData.zmin)
       ], scene);
   axisY.color = new BABYLON.Color3(0, 1, 0);
-  var yChar = makeTextPlane(axisData.ylabel, axisData.yColor, size / 5);
+  var yChar = makeTextPlane(axisData.ylabel, axisData.yColor, size / 5, axisData.ylabel.length);
   yChar.position = new BABYLON.Vector3(0, 0.9 * size, axisData.zmin);
   var axisZ = BABYLON.Mesh.CreateLines("axisZ", [
       new BABYLON.Vector3(0, 0, axisData.zmin/5), new BABYLON.Vector3(0, 0, size), new BABYLON.Vector3( 0 , -0.05 * size, size * 0.95),
       new BABYLON.Vector3(0, 0, size), new BABYLON.Vector3( 0, 0.05 * size, size * 0.95)
       ], scene);
   axisZ.color = new BABYLON.Color3(0, 0, 1);
-  var zChar = makeTextPlane(axisData.zlabel, axisData.zColor, size / 5);
+  var zChar = makeTextPlane(axisData.zlabel, axisData.zColor, size / 5, axisData.ylabel.length);
   zChar.position = new BABYLON.Vector3(size, 0.05 * size, 0.9 * size);
  
   
@@ -276,7 +276,7 @@ class Rect3D {
       this.showMinCurve = props.showPlots.showMinCurve;
       this.showMaxCurve = props.showPlots.showMaxCurve;
       this.steps = this.solution.length;
-      this.range = this.steps*props.resolution;
+      this.range = this.steps*props.plotResolution;
       this.indysteps = this.solution[1].length;   
       this.paths = [];
       this.maxCurve = [];
@@ -504,7 +504,6 @@ class RectGridClass {
   }
   xNum(){
     const decimalPlaces = (this.countDecimals(this.axisData.xGridStep) > 0) ? this.countDecimals(this.axisData.xGridStep) : 1;
-    //var fontSize = 15/decimalPlaces;
     for(let i = this.xi; i <= this.xf; i+=this.axisData.xGridStep){
       var xChar = this.makeTextPlane(`${i.toFixed(decimalPlaces)}`, this.axisData.xColor, this.size /(5*decimalPlaces), false);
       xChar.position = new BABYLON.Vector3(i+0.1, 0, this.axisData.zmin-0.25);
@@ -512,7 +511,6 @@ class RectGridClass {
   }
   yNum(){
     const decimalPlaces = (this.countDecimals(this.axisData.yGridStep) > 0) ? this.countDecimals(this.axisData.yGridStep) : 1;
-    //var fontSize = 15*this.axisData.yGridStep;
     for(let i = this.yi; i <= this.yf; i+=this.axisData.yGridStep){
       if(i===0){continue;}
       var yChar = this.makeTextPlane(`${i.toFixed(decimalPlaces)}`, this.axisData.yColor, this.size /(5*decimalPlaces),  false);
