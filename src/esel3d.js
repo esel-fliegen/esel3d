@@ -229,7 +229,7 @@ var Axis =(props)=> {
   var dynamicTexture = new BABYLON.DynamicTexture("DynamicTexture", { width:50*fontWidth, height:50}, scene, true);
   dynamicTexture.hasAlpha = true;
   dynamicTexture.drawText(text, 5*Math.ceil(fontWidth*4.5), 40, "bold 36px Arial", color , "transparent", true);
-  var plane = BABYLON.MeshBuilder.CreatePlane("TextPlane", {height:size, width:fontWidth/5, sideOrientation: MeshBuilder.DOUBLESIDE});
+  var plane = BABYLON.MeshBuilder.CreatePlane("TextPlane", {height:size, width:fontWidth/5, sideOrientation: BABYLON.Mesh.DOUBLESIDE});
   plane.material = new BABYLON.StandardMaterial("TextPlaneMaterial", scene);
   plane.material.backFaceCulling = false;
   plane.material.specularColor = new BABYLON.Color3(1, 1, 1);
