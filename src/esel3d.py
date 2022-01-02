@@ -154,7 +154,7 @@ class plot3d:
             self.__zGridStep = kwargs.get('yGridStep')
 
     def theme(self, theme):
-        self.theme = theme
+        self.__theme = theme
 
     def zAxis(self, **kwargs):
         if kwargs.get('zLabel') != None:
