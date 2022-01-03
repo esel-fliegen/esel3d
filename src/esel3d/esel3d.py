@@ -46,7 +46,7 @@ class BLoader:
         <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
         <script type="module">
             
-        import {DBControl, Axis, World, RectGridClass, Rect3D, locatorClass} from 'https://cdn.jsdelivr.net/gh/esel-fliegen/esel3d@0.1.37/src/esel3d/esel3d.js';
+        import {DBControl, Axis, World, RectGridClass, Rect3D, locatorClass} from 'https://cdn.jsdelivr.net/gh/esel-fliegen/esel3d@0.1.38/src/esel3d/esel3d.js';
         
             var canvas = document.getElementById("renderCanvas");
             const engine = new BABYLON.Engine(canvas, true);  
@@ -239,6 +239,9 @@ class plot3d:
         self.__zGridStep=1
         self.__data = {}
         display(HTML(self.__bg.header()))
+
+    def __del__(self):
+        print("plot3d deleted.")
     
     def plot(self):
         """Retrieve parameters, default or user defined, and plot the graph."""
