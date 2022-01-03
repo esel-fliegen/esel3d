@@ -276,6 +276,7 @@ class Rect3D {
       this.plotSurface = props.showPlots.plotSurface;
       this.showMinCurve = props.showPlots.showMinCurve;
       this.showMaxCurve = props.showPlots.showMaxCurve;
+      this.surfaceColor = props.showPlots.surfaceColor;
       this.steps = this.solution.length;
       this.range = this.steps*props.plotResolution;
       this.indysteps = this.solution[1].length;   
@@ -324,7 +325,7 @@ class Rect3D {
     
     drawRibbon(){
       const mat = new BABYLON.StandardMaterial("ribbon", this.scene);
-      mat.diffuseColor = new BABYLON.Color3(0.5, 0, 0);
+      mat.diffuseColor = new BABYLON.Color3(this.surfaceColor[0], this.surfaceColor[1], this.surfaceColor[2]);
       mat.backFaceCulling = false;
       const ribbon = BABYLON.MeshBuilder.CreateRibbon("ribbon", {pathArray: this.paths,
         sideOrientation: BABYLON.Mesh.DOUBLESIDE});

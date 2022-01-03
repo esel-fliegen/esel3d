@@ -90,7 +90,12 @@ class BLoader:
             }
   
             var grid = new RectGridClass({scene,gridData});  
-            var curve = new Rect3D({scene, solution, plotResolution, showPlots});
+            var color = [0, 0, 0]
+            for(let i = 0; i < solution.length; i++){ 
+                showPlots.sufaceColor = [0, 0, 0]
+                showPlots.sufaceColor[i] = 0.5;
+                var curve = new Rect3D({scene, solution[i], plotResolution, showPlots});
+            }            
             var db = DBControl({scene, worldData});
         </script>
 		""" % str(x)
@@ -234,6 +239,7 @@ class plot3d:
         self.__xColor="red"
         self.__yColor="green"
         self.__zColor="blue"
+        self.__surfaceColor = [0.5, 0, 0]
         self.__xGridStep=1
         self.__yGridStep=1
         self.__zGridStep=1
@@ -402,6 +408,7 @@ class plot3d:
             "y":self.__yDomain,
             "plotResolution":self.__plotResolution,
             "plots":{
+                "surfaceColor":self.__surfaceColor,
                 "showMaxCurve":self.__showMaxCurve,
                 "showMinCurve":self.__showMinCurve,
                 "plotLines":self.__plotLines,
@@ -432,7 +439,7 @@ class plot3d:
         """
         dx = np.linspace(self.__xinitial, self.__xfinal, int(self.__xDomain/self.__plotResolution+1))
         dy = np.linspace(self.__yinitial, self.__yfinal, int(self.__yDomain/self.__plotResolution+1))        
-
+        tempSolution = []
         for i in dy:
             z = func(dx, i)
             p = np.array(list(zip(dx, z, np.full((int(self.__xDomain/self.__plotResolution+1),), i))))
@@ -442,7 +449,8 @@ class plot3d:
                 self.__range.append(j[1])
             self.__maxCurve.append(p[temp.index(max(temp))].tolist())
             self.__minCurve.append(p[temp.index(min(temp))].tolist())
-            self.__solution.append(p.tolist())
+            tempSolution.append(p.tolist())
+        self.__solution.append(tempSolution)
         self.__maxPoint = max(self.__range)
         self.__minPoint = min(self.__range)
         
