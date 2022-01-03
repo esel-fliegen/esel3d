@@ -15,8 +15,7 @@ Explore and view the plot from all angles in 3D space.
 
 Add custom labels. Change the color scheme of the axis. Chose the background color which is the most appealing. 
 <br>
-
-<img src="img/esel3d_img2.png" width="300"><img src="img/esel3d_img3.png" width="150">
+<img src="img/esel3d_img2.png" width="300"> <img src="img/esel3d_img3.png" width="300">
 </br>
 
 
