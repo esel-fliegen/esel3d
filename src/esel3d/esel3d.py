@@ -43,7 +43,7 @@ class BLoader:
 	    return(
 		"""
 		<canvas id="renderCanvas"></canvas>
-      
+        <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
         <script type="module">
             
         import {DBControl, Axis, World, RectGridClass, Rect3D, locatorClass} from 'https://cdn.jsdelivr.net/gh/esel-fliegen/esel3d@0.1.36/src/esel3d/esel3d.js';
@@ -182,7 +182,9 @@ class plot3d:
         self.__plotSurface = 1
         self.init_data(func)
                
-
+    def title(self, title):
+        self.__title = title
+        
     def get_parameters(self):
         self.__data = {
             "title":self.__title,
