@@ -37,7 +37,7 @@ class BLoader:
                 }
         </style>
         </head>
-  """)
+        """)
 
     def scene(self, x):
 	    return(
@@ -46,7 +46,7 @@ class BLoader:
         <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
         <script type="module">
             
-        import {DBControl, Axis, World, RectGridClass, Rect3D, locatorClass} from 'https://cdn.jsdelivr.net/gh/esel-fliegen/esel3d@0.1.36/src/esel3d/esel3d.js';
+        import {DBControl, Axis, World, RectGridClass, Rect3D, locatorClass} from 'https://cdn.jsdelivr.net/gh/esel-fliegen/esel3d@0.1.37/src/esel3d/esel3d.js';
         
             var canvas = document.getElementById("renderCanvas");
             const engine = new BABYLON.Engine(canvas, true);  
@@ -100,6 +100,113 @@ class BLoader:
 
 
 class plot3d:
+    """
+    Main injection class for esel3D
+    
+    Attributes (all private and has default values)
+    ----------
+    title : string
+        default "ESEL3D"
+    xinitial : number
+        minimum value of x
+        default = 0
+    xfinal : number
+        maximum value of x
+        default = 0
+    yinitial : number
+        minimum value of y
+        default = 0
+    yfinal : number
+        maximum value of y
+        default = 0
+    xDomain : number
+        xfinal - xinitial
+        default = 0
+    yDomain : number
+        yfinal - yinitial
+        default = 0
+    plotResolution : number
+        resolution or step of the lines or surface
+        default = 1
+    solution : list
+        all the points/vertices to be plotted
+        default = []
+    maxCurve : list
+        the maximun curve of the plot
+        default = []
+    minCurve : list
+        the minimum curve of the plot
+        default = []
+    showMaxCurve : int
+        display the max curve on the plot
+        default = 0 (set to 1 to show)
+    showMinCurve : int
+        display the min curve on the plot
+        default = 0 (set to 1 to show)
+    plotSurface : int
+        display the surface plot
+        default = 0 (however the surface() method will default this to 1)
+    plotLine : int
+        display the line plot
+        default = 0 (however the surface() method will default this to 1)
+    theme : string
+        dark or light theme
+        default = "dark"
+    xLabel : string
+        display the x-axis label
+        default = "X"
+    yLabel : string
+        display the y-axis label
+        default = "Y"
+    zLabel : string
+        display the z-axis label
+        default = "Z"
+    xColor : string
+        color theme for the x-axis
+        default = "red"
+    yColor : string
+        color theme for the y-axis 
+        Note: the y and z axis on the BabylonJS are switched
+        default = "green"
+    zColor : string
+        color theme for the z-axis 
+        Note: the y and z axis on the BabylonJS are switched
+        default = "blue"
+    xGridStep : number
+        tick resolution for the x-axis
+        default = 1
+    yGridStep : number
+        tick resolution for the y-axis
+        default = 1
+    zGridStep : number
+        tick resolution for the z-axis
+        default = 1
+    
+    Methods
+    -------
+
+    plot()
+        Retrieve parameters and plot.
+    xAxis(**kwwarg)
+        Set xLabel, xColor and xGridStep.    
+    yAxis(**kwarg)
+        Set yLabel, yColor and yGridStep.
+    zAxis(**kwarg)
+        Set zLabel, zColor and zGridStep.
+    surface(func, x, y, resolution, **kwargs)
+        Assemble parameters for surface plot.
+    theme(theme)
+        Set the theme for the plot
+    title(title="ESEL3D")
+        Set title for the plot.
+    getParameters()
+        Retrieve all parameters to be plotted.
+    initData(func)
+        Calculate and populate solution from parameters and function.
+    
+    """
+
+
     def __init__(self):
         self.__bg = BLoader()       
         self.__title="ESEL3D"
@@ -134,11 +241,40 @@ class plot3d:
         display(HTML(self.__bg.header()))
     
     def plot(self):
-        self.get_parameters()
+        """Retrieve parameters, default or user defined, and plot the graph."""
+        self.getParameters()
         display(HTML(self.__bg.scene(self.__data)))
 
-    def xAxis(self, **kwargs):
+    def theme(self, theme="dark"):
+        """
+        Set the theme for the plot.
 
+        Parameter
+        ---------
+
+        theme : string
+            Only "dark" and "light" are available.
+            default = "dark"
+        """
+        self.__theme = theme
+
+    def xAxis(self, **kwargs):
+        """
+        Set parameters for x-axis
+
+        Parameters
+        ----------
+
+        xLabel : string
+            Label for the x-axis
+            default = "X"
+        xColor : string
+            color theme for the x-axis
+            default = "red"        
+        xGridStep : number
+            tick resolution for the x-axis
+            default = 1        
+        """
         if kwargs.get('xLabel') != None:
             self.__xlabel = kwargs.get('xLabel')
         if kwargs.get('xColor') !=None:
@@ -147,6 +283,23 @@ class plot3d:
             self.__xGridStep = kwargs.get('xGridStep')
 
     def yAxis(self, **kwargs):
+        """
+        Set parameters for y-axis
+        Note: the y and z axis are switched in BabylonJS
+
+        Parameters
+        ----------
+
+        yLabel : string
+            Label for the y-axis
+            default = "Y"
+        yColor : string
+            color theme for the y-axis
+            default = "green"        
+        yGridStep : number
+            tick resolution for the y-axis
+            default = 1        
+        """
         if kwargs.get('yLabel') != None:
             self.__zlabel = kwargs.get('yLabel')
         if kwargs.get('yColor') !=None:
@@ -154,10 +307,24 @@ class plot3d:
         if kwargs.get('yGridStep') != None:
             self.__zGridStep = kwargs.get('yGridStep')
 
-    def theme(self, theme):
-        self.__theme = theme
-
     def zAxis(self, **kwargs):
+        """
+        Set parameters for z-axis
+        Note: the y and z axis are switched in BabylonJS
+
+        Parameters
+        ----------
+
+        zLabel : string
+            Label for the z-axis
+            default = "Z"
+        zColor : string
+            color theme for the z-axis
+            default = "blue"        
+        zGridStep : number
+            tick resolution for the z-axis
+            default = 1        
+        """
         if kwargs.get('zLabel') != None:
             self.__ylabel = kwargs.get('zLabel')
         if kwargs.get('zColor') !=None:
@@ -167,12 +334,35 @@ class plot3d:
 
 
     def surface(self, func, x, y, resolution, **kwargs):
-        self.__xDomain = x[0]
-        self.__xinitial = x[1]
-        self.__xfinal = x[2]
-        self.__yDomain = y[0] 
-        self.__yinitial = y[1]
-        self.__yfinal = y[2]
+        """
+        Assemble the function and parameters for a surface plot.
+
+        Parameters
+        ----------
+
+        func : function
+            User defined function that takes two parameters
+        x : list
+            Parameters for the x domain.
+        y : list
+            Parameters for the y domain.
+        z : list
+            Parameters for the z domain.
+        resolution : number
+            Surface resolution or step.
+        **kwargs : string
+            showMaxCurve and showMinCurve.
+        
+        """
+        
+        self.__xinitial = x[0]
+        self.__xfinal = x[1]
+        self.__xDomain = self.__xfinal - self.__xinitial
+        
+        self.__yinitial = y[0]
+        self.__yfinal = y[1]
+        self.__yDomain = self.__yfinal - self.__yinitial 
+
         self.__plotResolution = resolution
         if kwargs.get('showMaxCurve') != None:
             self.__showMaxCurve = kwargs.get('showMaxCurve')
@@ -180,12 +370,25 @@ class plot3d:
             self.__showMinCurve = kwargs.get('showMinCurve')
         self.__plotLines = 1 
         self.__plotSurface = 1
-        self.init_data(func)
+        self.initData(func)
                
-    def title(self, title):
-        self.__title = title
+    def title(self, title = "ESEL3D"):
+        """
+        Set plot title.
+
+        Parameter
+        ---------
         
-    def get_parameters(self):
+        title : string
+            default = "ESEL3D"
+        """
+        self.__title = title
+
+    def getParameters(self):
+        """
+        Retrieve all parameters as dictionary.
+
+        """
         self.__data = {
             "title":self.__title,
             "xinitial":self.__xinitial,
@@ -219,7 +422,11 @@ class plot3d:
             }            
         }
 
-    def init_data(self, func):
+    def initData(self, func):
+        """
+        Assemble the solution list from the function and parameters.
+
+        """
         dx = np.linspace(self.__xinitial, self.__xfinal, int(self.__xDomain/self.__plotResolution+1))
         dy = np.linspace(self.__yinitial, self.__yfinal, int(self.__yDomain/self.__plotResolution+1))        
 

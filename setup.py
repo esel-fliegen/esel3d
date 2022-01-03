@@ -5,10 +5,10 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="esel3d-Donkey",
-    version="0.1.36",
+    version="0.1.37",
     author="Khan Tran",
     author_email="esel.fliegen@gmail.com",
-    description="A 3D plotter for Google Colab",
+    description="A 3D plotter for Google Colab and Jupyter",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/esel-fliegen/esel3d",
