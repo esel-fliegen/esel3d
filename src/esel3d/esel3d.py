@@ -343,7 +343,7 @@ class plot3d:
             self.__yGridStep = kwargs.get('zGridStep')
 
 
-    def surface(self, func, x, y, resolution, **kwargs):
+    def surface(self, func, x, y, resolution, plotLines = 1, plotSurface = 1, **kwargs):
         """
         Assemble the function and parameters for a surface plot.
 
@@ -378,8 +378,8 @@ class plot3d:
             self.__showMaxCurve = kwargs.get('showMaxCurve')
         if kwargs.get('showMinCurve') != None:
             self.__showMinCurve = kwargs.get('showMinCurve')
-        self.__plotLines = 1 
-        self.__plotSurface = 1
+        self.__plotLines = plotLines 
+        self.__plotSurface = plotSurface
         self.initData(func)
                
     def title(self, title = "ESEL3D"):
