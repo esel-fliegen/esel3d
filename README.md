@@ -22,4 +22,12 @@ With the point explorer gizmo, the user can retrieve point location.
 
 ![Fig:4](https://raw.githubusercontent.com/esel-fliegen/esel3d/main/img/esel3d_img4.png)
  
+## Tutorials and Examples
 
+Tuts and examples will be provided in the form of YouTube videos with accompanying example notebooks. 
+
+## TODO
+- [ ] Add animation option
+- [ ] Make 3D cylindrical grid
+- [ ] Make 3D polar grid
+- [ ] Make vector field plot
