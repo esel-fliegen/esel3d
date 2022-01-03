@@ -9,15 +9,14 @@ Jupyter or Google Colab cell.
 
 Explore and view the plot from all angles in 3D space.
 <br>
-<img src="/img/esel3d_img1.png" width="300">
+<img src="/img/esel3d_img1.png" width="600">
 </br>
 ## Configurable
 
 Add custom labels. Change the color scheme of the axis. Chose the background color which is the most appealing. 
 <br>
 
-<img src="img/esel3d_img2.png" width="150">
-<img src="img/esel3d_img3.png" width="150">
+<img src="img/esel3d_img2.png" width="300"><img src="img/esel3d_img3.png" width="150">
 </br>
 
 
@@ -26,7 +25,7 @@ Add custom labels. Change the color scheme of the axis. Chose the background col
 
 With the point explorer gizmo, the user can retrieve point location. 
 <br>
-<img src="img/esel3d_img4.png" width="300">
+<img src="img/esel3d_img4.png" width="600">
 </br>
  
 
