@@ -271,7 +271,7 @@ class Rect3D {
     constructor(props){
     
       this.scene = props.scene;
-      this.solution = props.solution;
+      this.solution = props.solution[0];
       
       this.plotSurface = props.showPlots.plotSurface;
       this.showMinCurve = props.showPlots.showMinCurve;

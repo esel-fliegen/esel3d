@@ -46,14 +46,13 @@ class BLoader:
         <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
         <script type="module">
             
-        import {DBControl, Axis, World, RectGridClass, Rect3D, locatorClass} from 'https://cdn.jsdelivr.net/gh/esel-fliegen/esel3d@0.1.39/src/esel3d/esel3d.js';
+        import {DBControl, Axis, World, RectGridClass, Rect3D, locatorClass} from 'https://cdn.jsdelivr.net/gh/esel-fliegen/esel3d@0.1.40/src/esel3d/esel3d.js';
         
             var canvas = document.getElementById("renderCanvas");
             const engine = new BABYLON.Engine(canvas, true);  
             const scene = new BABYLON.Scene(engine);
 
             const Data = %s;
-            const solution = Data.solution;
             const plotResolution = Data.plotResolution;
             const showPlots = Data.plots;
 
@@ -90,12 +89,14 @@ class BLoader:
             }
   
             var grid = new RectGridClass({scene,gridData});  
-            var color = [0, 0, 0]
-            for(let i = 0; i < solution.length; i++){ 
-                showPlots.sufaceColor = [0, 0, 0]
-                showPlots.sufaceColor[i] = 0.5;
-                var curve = new Rect3D({scene, solution[i], plotResolution, showPlots});
-            }            
+            
+            for(let i = 0; i < Data.solution.length; i++){
+                showPlots.surfaceColor = [0, 0, 0];
+                showPlots.surfaceColor[i] = 0.5;
+                const solution = Data.solution[i];
+                var curve = new Rect3D({scene, solution, plotResolution, showPlots});
+            }
+
             var db = DBControl({scene, worldData});
         </script>
 		""" % str(x)
@@ -239,7 +240,7 @@ class plot3d:
         self.__xColor="red"
         self.__yColor="green"
         self.__zColor="blue"
-        self.__surfaceColor = [0.5, 0, 0]
+        self.__surfaceColor = []
         self.__xGridStep=1
         self.__yGridStep=1
         self.__zGridStep=1
@@ -364,13 +365,13 @@ class plot3d:
         
         """
         
-        self.__xinitial = x[0]
-        self.__xfinal = x[1]
-        self.__xDomain = self.__xfinal - self.__xinitial
+        self.__xinitial = min(self.__xinitial, x[0])
+        self.__xfinal = max(self.__xfinal, x[1])
+        self.__xDomain = max((self.__xfinal - self.__xinitial), self.__xDomain)
         
-        self.__yinitial = y[0]
-        self.__yfinal = y[1]
-        self.__yDomain = self.__yfinal - self.__yinitial 
+        self.__yinitial = min(self.__yinitial, y[0])
+        self.__yfinal = max(self.__yfinal, y[1])
+        self.__yDomain = max((self.__yfinal - self.__yinitial), self.__yDomain)
 
         self.__plotResolution = resolution
         if kwargs.get('showMaxCurve') != None:
@@ -451,7 +452,9 @@ class plot3d:
             self.__minCurve.append(p[temp.index(min(temp))].tolist())
             tempSolution.append(p.tolist())
         self.__solution.append(tempSolution)
-        self.__maxPoint = max(self.__range)
-        self.__minPoint = min(self.__range)
+        if max(self.__range) > self.__maxPoint:
+            self.__maxPoint = max(self.__range)
+        if min(self.__range) < self.__minPoint:
+            self.__minPoint = min(self.__range)
         
 
