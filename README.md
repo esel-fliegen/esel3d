@@ -8,7 +8,7 @@ Jupyter or Google Colab cell.
 ## Navigate
 
 Explore and view the plot from all angles in 3D space.
-![Fig:1](/img/esel3d_img1.png | width = 300)
+<img src="/img/esel3d_img1.png" width="300">
 
 ## Configurable
 
