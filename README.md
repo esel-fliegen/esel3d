@@ -14,7 +14,7 @@ Explore and view the plot from all angles in 3D space.
 
 Add custom labels. Change the color scheme of the axis. Chose the background color which is the most appealing. Plot up to 3 sufaces. 
 ![Fig:2](https://raw.githubusercontent.com/esel-fliegen/esel3d/main/img/esel3d_img2.png)
-![Fig:5](https://raw.githubusercontent.com/esel-fliegen/esel3d/main/img/esel3d_img5git.png)
+![Fig:5](https://raw.githubusercontent.com/esel-fliegen/esel3d/main/img/esel3d_img5.png)
 ![Fig:3](https://raw.githubusercontent.com/esel-fliegen/esel3d/main/img/esel3d_img3.png)
 
 ## Inspect
