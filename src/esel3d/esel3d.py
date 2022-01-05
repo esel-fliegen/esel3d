@@ -46,7 +46,7 @@ class BLoader:
         <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
         <script type="module">
             
-        import {DBControl, Axis, World, RectGridClass, Rect3D, locatorClass} from 'https://cdn.jsdelivr.net/gh/esel-fliegen/esel3d@0.1.41/src/esel3d/esel3d.js';
+        import {DBControl, Axis, World, RectGridClass, Rect3D, locatorClass} from 'https://cdn.jsdelivr.net/gh/esel-fliegen/esel3d@0.1.42/src/esel3d/esel3d.js';
         
             var canvas = document.getElementById("renderCanvas");
             const engine = new BABYLON.Engine(canvas, true);  
@@ -380,7 +380,7 @@ class plot3d:
             self.__showMinCurve = kwargs.get('showMinCurve')
         self.__plotLines = plotLines 
         self.__plotSurface = plotSurface
-        self.initData(func)
+        self.initData(func, x , y)
                
     def title(self, title = "ESEL3D"):
         """
@@ -433,24 +433,38 @@ class plot3d:
             }            
         }
 
-    def initData(self, func):
+    def initData(self, func, x = None, y = None):
         """
         Assemble the solution list from the function and parameters.
 
         """
-        dx = np.linspace(self.__xinitial, self.__xfinal, int(self.__xDomain/self.__plotResolution+1))
-        dy = np.linspace(self.__yinitial, self.__yfinal, int(self.__yDomain/self.__plotResolution+1))        
+        xDomain = x[1] - x[0]
+        yDomain = y[1] - y[0]
+        dx = np.linspace(x[0], x[1], int(xDomain/self.__plotResolution+1))
+        dy = np.linspace(y[0], y[1], int(yDomain/self.__plotResolution+1))     
         tempSolution = []
-        for i in dy:
-            z = func(dx, i)
-            p = np.array(list(zip(dx, z, np.full((int(self.__xDomain/self.__plotResolution+1),), i))))
-            temp = []
-            for j in p:
-                temp.append(j[1])
-                self.__range.append(j[1])
-            self.__maxCurve.append(p[temp.index(max(temp))].tolist())
-            self.__minCurve.append(p[temp.index(min(temp))].tolist())
-            tempSolution.append(p.tolist())
+        try:
+          for i in dy:
+              z = func(dx, i)
+              p = np.array(list(zip(dx, z, np.full((int(xDomain/self.__plotResolution+1),), i))))
+              temp = []
+              for j in p:
+                  temp.append(j[1])
+                  self.__range.append(j[1])
+              self.__maxCurve.append(p[temp.index(max(temp))].tolist())
+              self.__minCurve.append(p[temp.index(min(temp))].tolist())
+              tempSolution.append(p.tolist())
+        except TypeError:
+          for i in dx:
+              z = func(i, dy)
+              p = np.array(list(zip(z, dy, np.full((int(yDomain/self.__plotResolution+1),), i))))
+              temp = []
+              for j in p:
+                  temp.append(j[1])
+                  self.__range.append(j[1])
+              self.__maxCurve.append(p[temp.index(max(temp))].tolist())
+              self.__minCurve.append(p[temp.index(min(temp))].tolist())
+              tempSolution.append(p.tolist())
         self.__solution.append(tempSolution)
         if max(self.__range) > self.__maxPoint:
             self.__maxPoint = max(self.__range)
