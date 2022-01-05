@@ -46,7 +46,7 @@ class BLoader:
         <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
         <script type="module">
             
-        import {DBControl, Axis, World, RectGridClass, Rect3D, locatorClass} from 'https://cdn.jsdelivr.net/gh/esel-fliegen/esel3d@0.1.42/src/esel3d/esel3d.js';
+        import {DBControl, Axis, World, RectGridClass, Rect3D, locatorClass} from 'https://cdn.jsdelivr.net/gh/esel-fliegen/esel3d@0.1.43/src/esel3d/esel3d.js';
         
             var canvas = document.getElementById("renderCanvas");
             const engine = new BABYLON.Engine(canvas, true);  
@@ -95,6 +95,7 @@ class BLoader:
                 showPlots.surfaceColor[i] = 0.5;
                 const solution = Data.solution[i];
                 var curve = new Rect3D({scene, solution, plotResolution, showPlots});
+                delete Data.solution[i];
             }
 
             var db = DBControl({scene, worldData});
@@ -235,8 +236,8 @@ class plot3d:
         self.__minPoint=0
         self.__theme="dark"
         self.__xlabel="X"
-        self.__ylabel="Z"
-        self.__zlabel="Y"
+        self.__ylabel="Y"
+        self.__zlabel="Z"
         self.__xColor="red"
         self.__yColor="green"
         self.__zColor="blue"
@@ -254,6 +255,7 @@ class plot3d:
         """Retrieve parameters, default or user defined, and plot the graph."""
         self.getParameters()
         display(HTML(self.__bg.scene(self.__data)))
+        del self.__solution
 
     def theme(self, theme="dark"):
         """
@@ -311,11 +313,11 @@ class plot3d:
             default = 1        
         """
         if kwargs.get('yLabel') != None:
-            self.__zlabel = kwargs.get('yLabel')
+            self.__ylabel = kwargs.get('yLabel')
         if kwargs.get('yColor') !=None:
-            self.__zColor = kwargs.get('yColor')
+            self.__yColor = kwargs.get('yColor')
         if kwargs.get('yGridStep') != None:
-            self.__zGridStep = kwargs.get('yGridStep')
+            self.__yGridStep = kwargs.get('yGridStep')
 
     def zAxis(self, **kwargs):
         """
@@ -336,11 +338,11 @@ class plot3d:
             default = 1        
         """
         if kwargs.get('zLabel') != None:
-            self.__ylabel = kwargs.get('zLabel')
+            self.__zlabel = kwargs.get('zLabel')
         if kwargs.get('zColor') !=None:
-            self.__yColor = kwargs.get('zColor')
+            self.__zColor = kwargs.get('zColor')
         if kwargs.get('zGridStep') != None:
-            self.__yGridStep = kwargs.get('zGridStep')
+            self.__zGridStep = kwargs.get('zGridStep')
 
 
     def surface(self, func, x, y, resolution, plotLines = 1, plotSurface = 1, **kwargs):
@@ -457,7 +459,7 @@ class plot3d:
         except TypeError:
           for i in dx:
               z = func(i, dy)
-              p = np.array(list(zip(z, dy, np.full((int(yDomain/self.__plotResolution+1),), i))))
+              p = np.array(list(zip(np.full((int(yDomain/self.__plotResolution+1),), i), dy, z)))
               temp = []
               for j in p:
                   temp.append(j[1])
