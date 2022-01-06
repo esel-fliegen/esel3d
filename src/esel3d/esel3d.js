@@ -639,7 +639,7 @@ class locatorClass {
     this.rect1.linkWithMesh(this.ball);
     this.rect1.linkOffsetY = -150;
 
-    this.label.text = "X: U: T: ";
+    this.label.text = "X: Y: Z: ";
     this.label.fontSize = "15px";
     this.label.color = this.color;
     this.rect1.addControl(this.label);          
@@ -668,8 +668,8 @@ function Locator(props){
   scene.onPointerObservable.add(function(){
     var coords = c.ball.getPositionExpressedInLocalSpace();
     c.label.text = "X: "+coords._x.toFixed(2).toString()+" "+
-      " U: "+coords._y.toFixed(2).toString()+" "+
-      " T: "+coords._z.toFixed(2).toString();
+      " Y: "+coords._y.toFixed(2).toString()+" "+
+      " Z: "+coords._z.toFixed(2).toString();
   })
 }
 

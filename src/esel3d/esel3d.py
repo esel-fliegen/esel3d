@@ -46,7 +46,7 @@ class BLoader:
         <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
         <script type="module">
             
-        import {DBControl, Axis, World, RectGridClass, Rect3D, locatorClass} from 'https://cdn.jsdelivr.net/gh/esel-fliegen/esel3d@0.1.43/src/esel3d/esel3d.js';
+        import {DBControl, Axis, World, RectGridClass, Rect3D, locatorClass} from 'https://cdn.jsdelivr.net/gh/esel-fliegen/esel3d@0.1.44/src/esel3d/esel3d.js';
         
             var canvas = document.getElementById("renderCanvas");
             const engine = new BABYLON.Engine(canvas, true);  
@@ -395,6 +395,34 @@ class plot3d:
             default = "ESEL3D"
         """
         self.__title = title
+
+    def setSolution(self, solution):
+        """
+        Manually set solution to plot.
+
+        Parameter
+        ---------
+
+        solution = list
+            four dimensional list
+
+            i.e.
+            [[[[x, y, z],...,[x, y, z]]]]
+            solution set -> surface -> lines -> points
+
+        """
+
+    def setData(self, data):
+        """
+        Manually insert data parameters.
+
+        Parameter
+        ---------
+
+        data : dictionary
+            all data parameters
+        """
+        self.__data = data
 
     def getParameters(self):
         """
