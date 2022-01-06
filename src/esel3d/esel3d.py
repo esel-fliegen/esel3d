@@ -46,7 +46,7 @@ class BLoader:
         <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
         <script type="module">
             
-        import {DBControl, Axis, World, RectGridClass, Rect3D, locatorClass} from 'https://cdn.jsdelivr.net/gh/esel-fliegen/esel3d@0.1.45/src/esel3d/esel3d.js';
+        import {DBControl, Axis, World, RectGridClass, Rect3D, locatorClass} from 'https://cdn.jsdelivr.net/gh/esel-fliegen/esel3d@0.1.46/src/esel3d/esel3d.js';
         
             var canvas = document.getElementById("renderCanvas");
             const engine = new BABYLON.Engine(canvas, true);  
@@ -92,9 +92,9 @@ class BLoader:
             
             for(let i = 0; i < Data.solution.length; i++){
                 showPlots.surfaceColor = [0, 0, 0];
-                showPlots.surfaceColor[i%3] = 0.5;
+                showPlots.surfaceColor[i] = 0.5;
                 const solution = Data.solution[i];
-                var curve`${i}` = new Rect3D({scene, solution, plotResolution, showPlots});
+                var curve = new Rect3D({scene, solution, plotResolution, showPlots});
                 delete Data.solution[i];
             }
 
