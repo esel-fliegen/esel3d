@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="esel3d-Donkey",
-    version="0.1.44",
+    version="0.1.45",
     author="Khan Tran",
     author_email="esel.fliegen@gmail.com",
     description="A 3D plotter for Google Colab and Jupyter",

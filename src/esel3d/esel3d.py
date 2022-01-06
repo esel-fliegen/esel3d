@@ -46,7 +46,7 @@ class BLoader:
         <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
         <script type="module">
             
-        import {DBControl, Axis, World, RectGridClass, Rect3D, locatorClass} from 'https://cdn.jsdelivr.net/gh/esel-fliegen/esel3d@0.1.44/src/esel3d/esel3d.js';
+        import {DBControl, Axis, World, RectGridClass, Rect3D, locatorClass} from 'https://cdn.jsdelivr.net/gh/esel-fliegen/esel3d@0.1.45/src/esel3d/esel3d.js';
         
             var canvas = document.getElementById("renderCanvas");
             const engine = new BABYLON.Engine(canvas, true);  
@@ -92,9 +92,9 @@ class BLoader:
             
             for(let i = 0; i < Data.solution.length; i++){
                 showPlots.surfaceColor = [0, 0, 0];
-                showPlots.surfaceColor[i] = 0.5;
+                showPlots.surfaceColor[i%3] = 0.5;
                 const solution = Data.solution[i];
-                var curve = new Rect3D({scene, solution, plotResolution, showPlots});
+                var curve`${i}` = new Rect3D({scene, solution, plotResolution, showPlots});
                 delete Data.solution[i];
             }
 
@@ -206,7 +206,7 @@ class plot3d:
         Set the theme for the plot
     title(title="ESEL3D")
         Set title for the plot.
-    getParameters()
+    __getParameters()
         Retrieve all parameters to be plotted.
     initData(func)
         Calculate and populate solution from parameters and function.
@@ -253,7 +253,7 @@ class plot3d:
     
     def plot(self):
         """Retrieve parameters, default or user defined, and plot the graph."""
-        self.getParameters()
+        self.__getParameters()
         display(HTML(self.__bg.scene(self.__data)))
         del self.__solution
 
@@ -411,6 +411,7 @@ class plot3d:
             solution set -> surface -> lines -> points
 
         """
+        self.__solution = solution
 
     def setData(self, data):
         """
@@ -424,7 +425,31 @@ class plot3d:
         """
         self.__data = data
 
-    def getParameters(self):
+    def printParams(self):
+        """
+        Prints plot parameters.
+        """
+        print("Title: ", self.__title)
+        print("X-initial: ", self.__xinitial)
+        print("X-final: ", self.__xfinal)
+        print("Y-initial: ", self.__yinitial)
+        print("Y-final: ", self.__yfinal)
+        print("X-domain: ", self.__xDomain)
+        print("Y-domain: ", self.__yDomain)
+        print("Plot resolution: ", self.__plotResolution)
+        print("Theme: ", self.__theme)
+        print("X-label: ", self.__xlabel)
+        print("X-color: ", self.__xColor)
+        print("X-step: ", self.__xGridStep)
+        print("Y-label: ", self.__ylabel)
+        print("Y-color: ", self.__yColor)
+        print("Y-step: ", self.__yGridStep)
+        print("Z-label: ", self.__zlabel)
+        print("Z-color: ", self.__zColor)
+        print("Z-step: ", self.__zGridStep)
+
+
+    def __getParameters(self):
         """
         Retrieve all parameters as dictionary.
 
@@ -465,8 +490,8 @@ class plot3d:
 
     def initData(self, func, x = None, y = None):
         """
-        Assemble the solution list from the function and parameters.
-
+        Assemble the solution list from the function and parameters. 
+        X and Y and independent variable and Z is dependent. 
         """
         xDomain = x[1] - x[0]
         yDomain = y[1] - y[0]
