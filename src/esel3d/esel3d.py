@@ -423,7 +423,32 @@ class plot3d:
         data : dictionary
             all data parameters
         """
-        self.__data = data
+        self.__title = data.get("title")
+        self.__xinitial = data.get("xinitial")
+        self.__xfinal = data.get("xfinal")
+        self.__yinitial = data.get("yinitial")
+        self.__yfinal = data.get("yfinal")
+        self.__xDomain = data.get("xdomain")
+        self.__yDomain = data.get("ydomain")
+        self.__surfaceColor = data.get("plots").get("surfaceColor")
+        self.__showMaxCurve = data.get("plots").get("showMaxCurve")
+        self.__showMinCurve = data.get("plots").get("showMinCurve")
+        self.__plotLines = data.get("plots").get("plotLines")
+        self.__plotSurface = data.get("plots").get("plotSurface")
+        self.__solution = data.get("solution")
+        self.__maxPoint = data.get("maxPoint")
+        self.__minPoint = data.get("minPoint")
+        self.__theme = data.get("theme")
+        self.__xlabel = data.get("axisConfig").get("xlabel")
+        self.__ylabel = data.get("axisConfig").get("ylabel")
+        self.__zlabel = data.get("axisConfig").get("zlabel")
+        self.__xColor = data.get("axisConfig").get("xColor")
+        self.__yColor = data.get("axisConfig").get("yColor")
+        self.__zColor = data.get("axisConfig").get("zColor")
+        self.__xGridStep = data.get("axisConfig").get("xGridStep")
+        self.__yGridStep = data.get("axisConfig").get("yGridStep")
+        self.__zGridStep = data.get("axisConfig").get("zGridStep")
+
 
     def printParams(self):
         """
