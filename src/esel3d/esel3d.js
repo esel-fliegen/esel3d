@@ -274,6 +274,7 @@ class Rect3D {
       this.solution = props.solution;
       
       this.plotSurface = props.showPlots.plotSurface;
+      this.showLines = props.showPlots.plotLines;
       this.showMinCurve = props.showPlots.showMinCurve;
       this.showMaxCurve = props.showPlots.showMaxCurve;
       this.surfaceColor = props.showPlots.surfaceColor;
@@ -317,8 +318,11 @@ class Rect3D {
         this.minCurve.push(path[minidx]); 
         this.paths.push(path);
         
-        var lines = BABYLON.MeshBuilder.CreateLines("paths",{ points: path});
-        lines.alpha = 0.5
+        if(this.showLines === 1){
+          var lines = BABYLON.MeshBuilder.CreateLines("paths",{ points: path});
+          lines.alpha = 0.5
+        }
+        
         
       }
     }
