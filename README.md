@@ -5,6 +5,15 @@ It is a 3D plotter for curves, surfaces, shapes and more. The redering uses [Bab
 game engine to produce vibrant visuals and provides intuitive controls right inside a
 Google Colab cell. 
 
+### Install
+
+```html
+#in the first Colab cell
+!pip install esel3d
+
+*esel3d will also work with a local Jupyter notebook but with extra configuration. However, it's a bit hacky. Once I find a permanent solution, I'll update. 
+```
+
 ### Example Usage
 
 ```python
@@ -37,7 +46,7 @@ plt3d.plot()
 Explore and view the plot from all angles in 3D space.
 ![Fig:1](https://raw.githubusercontent.com/esel-fliegen/esel3d/main/img/esel3d_img1.png)
 
-## Configurate
+## Configurable
 
 Add custom labels. Change the color scheme of the axis. Chose the background color which is the most appealing. Plot up to 3 sufaces. 
 ![Fig:2](https://raw.githubusercontent.com/esel-fliegen/esel3d/main/img/esel3d_img2.png)
@@ -54,7 +63,10 @@ With the point explorer gizmo, users can view point location.
 
 Tuts and examples will be provided in the form of YouTube videos with accompanying example notebooks. 
 
+[Demo-Notebook](https://colab.research.google.com/gist/esel-fliegen/e56b29d1814ffaf839854f775c229cd6/esel3d_beta-demo-colab.ipynb)
+
 ## TODO
+- [ ] Add configs for Jupyter Notebook compatibility
 - [ ] Add animation option
 - [ ] Make 3D cylindrical grid
 - [ ] Make 3D polar grid
