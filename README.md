@@ -7,7 +7,7 @@ Google Colab cell.
 
 ### Example Usage
 
-'''python
+```python
 from esel3d import plot3d
 import numpy as np
 
@@ -30,7 +30,7 @@ plt3d = plot3d()
 plt3d.surface(func, [xinitial, xfinal], [yinitial, yfinal], resolution)
 plt3d.plot()
 
-'''
+```
 
 ## Navigate
 
