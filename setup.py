@@ -4,11 +4,11 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="esel3d-Donkey",
+    name="esel3d",
     version="0.1.47",
     author="Khan Tran",
     author_email="esel.fliegen@gmail.com",
-    description="A 3D plotter for Google Colab and Jupyter",
+    description="A 3D plotter for Google Colab and Jupyter Notebook",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/esel-fliegen/esel3d",

@@ -19,7 +19,7 @@ Add custom labels. Change the color scheme of the axis. Chose the background col
 
 ## Inspect
 
-With the point explorer gizmo, the user can retrieve point location. 
+With the point explorer gizmo, users can view point location. 
 
 ![Fig:4](https://raw.githubusercontent.com/esel-fliegen/esel3d/main/img/esel3d_img4.png)
  
