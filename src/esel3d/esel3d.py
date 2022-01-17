@@ -7,7 +7,7 @@ class BLoader:
     def __init__(self, backgroundColor=(1, 1, 1)):
         self.backgroundColor = backgroundColor
 
-    def header(self):
+    def __header(self):
         return("""
 		<head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -39,7 +39,7 @@ class BLoader:
         </head>
         """)
 
-    def scene(self, x):
+    def __scene(self, x):
 	    return(
 		"""
 		<canvas id="renderCanvas"></canvas>
@@ -106,7 +106,7 @@ class BLoader:
 
 
 
-class plot3d:
+class plot3d(BLoader):
     """
     Main injection class for esel3D
     
@@ -215,7 +215,7 @@ class plot3d:
 
 
     def __init__(self):
-        self.__bg = BLoader()       
+             
         self.__title="ESEL3D"
         self.__xinitial=0
         self.__xfinal=0
@@ -246,7 +246,7 @@ class plot3d:
         self.__yGridStep=1
         self.__zGridStep=1
         self.__data = {}
-        display(HTML(self.__bg.header()))
+        display(HTML(self.__header()))
 
     def __del__(self):
         print("plot3d deleted.")
@@ -254,7 +254,7 @@ class plot3d:
     def plot(self):
         """Retrieve parameters, default or user defined, and plot the graph."""
         self.__getParameters()
-        display(HTML(self.__bg.scene(self.__data)))
+        display(HTML(self.__scene(self.__data)))
         del self.__solution
 
     def theme(self, theme="dark"):
