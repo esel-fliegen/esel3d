@@ -246,7 +246,7 @@ class plot3d(BLoader):
         self.__yGridStep=1
         self.__zGridStep=1
         self.__data = {}
-        display(HTML(self.__header()))
+        display(HTML(self._BLoader__header()))
 
     def __del__(self):
         print("plot3d deleted.")
@@ -254,7 +254,7 @@ class plot3d(BLoader):
     def plot(self):
         """Retrieve parameters, default or user defined, and plot the graph."""
         self.__getParameters()
-        display(HTML(self.__scene(self.__data)))
+        display(HTML(self._BLoader__scene(self.__data)))
         del self.__solution
 
     def theme(self, theme="dark"):
