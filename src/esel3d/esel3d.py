@@ -46,7 +46,7 @@ class BLoader:
         <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
         <script type="module">
             
-        import {DBControl, Axis, World, RectGridClass, Rect3D, locatorClass} from 'https://cdn.jsdelivr.net/gh/esel-fliegen/esel3d@0.1.47/src/esel3d/esel3d.js';
+        import {DBControl, Axis, World, RectGridClass, Rect3D, locatorClass} from 'https://cdn.jsdelivr.net/gh/esel-fliegen/esel3d@0.1.48/src/esel3d/esel3d.js';
         
             var canvas = document.getElementById("renderCanvas");
             const engine = new BABYLON.Engine(canvas, true);  
@@ -208,8 +208,12 @@ class plot3d(BLoader):
         Set title for the plot.
     __getParameters()
         Retrieve all parameters to be plotted.
+    setGrid(x-initial, x-final, y-initial, y-final, z-initial, z-final)
+        Set grid parameters after surface creation.  
     initData(func)
         Calculate and populate solution from parameters and function.
+    initData2(func)
+        Calculate and populate solution from multiple functions.
     
     """
 
@@ -416,6 +420,27 @@ class plot3d(BLoader):
         """
         self.__solution = solution
 
+    def setGrid(self, xi, xf, yi, yf, zi, zf):
+        """
+        Set grid parameters after surface creation. 
+
+        Parameter
+        ---------
+
+        xi = number
+        xf = number
+        yi = number
+        yf = number
+        zi = number
+        zf = number
+        """
+        self.__xinitial = xi
+        self.__xfinal = xf
+        self.__yinitial = yi
+        self.__yfinal = yf
+        self.__minPoint = zi
+        self.__maxPoint = zf
+
     def setData(self, data):
         """
         Manually insert data parameters.
@@ -515,6 +540,7 @@ class plot3d(BLoader):
                 "zGridStep":self.__zGridStep,
             }            
         }
+
     def initData2(self, func, x = None, y = None):
         """
         Assemble the a list of solution list from the function and parameters. 
@@ -553,6 +579,8 @@ class plot3d(BLoader):
             self.__maxPoint = max(self.__range)
         if min(self.__range) < self.__minPoint:
             self.__minPoint = min(self.__range)
+
+
     def initData(self, func, x = None, y = None):
         """
         Assemble the solution list from the function and parameters. 
