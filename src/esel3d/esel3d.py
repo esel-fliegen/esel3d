@@ -46,7 +46,7 @@ class BLoader:
         <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
         <script type="module">
             
-        import {DBControl, Axis, World, RectGridClass, Rect3D, locatorClass} from 'https://cdn.jsdelivr.net/gh/esel-fliegen/esel3d@0.1.48/src/esel3d/esel3d.js';
+        import {DBControl, Axis, World, RectGridClass, Rect3D, locatorClass} from 'https://cdn.jsdelivr.net/gh/esel-fliegen/esel3d@0.1.49/src/esel3d/esel3d.js';
         
             var canvas = document.getElementById("renderCanvas");
             const engine = new BABYLON.Engine(canvas, true);  
@@ -249,6 +249,7 @@ class plot3d(BLoader):
         self.__xGridStep=1
         self.__yGridStep=1
         self.__zGridStep=1
+        self.__isPolar=0
         self.__data = {}
         display(HTML(self._BLoader__header()))
 
@@ -348,6 +349,30 @@ class plot3d(BLoader):
         if kwargs.get('zGridStep') != None:
             self.__zGridStep = kwargs.get('zGridStep')
 
+    def polar(self, func, x= [], y = [], z = [], theta = 0, theta_prec = .5, z_prec= 1, plotLines = 1, plotSurface = 1):
+        self.__xinitial = x[0]
+        self.__xfinal = x[1]
+        self.__yinitial = y[0]
+        self.__yfinal = y[1]
+        self.__minPoint = z[0]
+        self.__maxPoint = z[1]
+        self.__plotResolution = z_prec
+        zDomain = z[1] - z[0]
+        dz = np.linspace(z[0], z[1], int(zDomain/z_prec+1))
+        dtheta = np.linspace(0, 2*np.pi, int((1/theta_prec)+1))
+        tempSolution = []
+
+        for i in z:
+          temp = []
+          for d in dtheta:
+            soln = [func[0](d), func[1](d), z]
+            temp.append(soln)
+          tempSolution.append(temp)
+
+        self.__solution.append(tempSolution)
+        self.__plotLines = plotLines
+        self.__plotSurface = plotSurface
+        self.__isPolar = 1
 
     def surface(self, func, x, y, resolution, plotLines = 1, plotSurface = 1, **kwargs):
         """
@@ -516,6 +541,7 @@ class plot3d(BLoader):
             "x":self.__xDomain,
             "y":self.__yDomain,
             "plotResolution":self.__plotResolution,
+            "isPolar":self.__isPolar,
             "plots":{
                 "surfaceColor":self.__surfaceColor,
                 "showMaxCurve":self.__showMaxCurve,

@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="esel3d",
-    version="0.1.48",
+    version="0.1.49",
     author="Khan Tran",
     author_email="esel.fliegen@gmail.com",
     description="A 3D plotter for Google Colab and Jupyter Notebook",
