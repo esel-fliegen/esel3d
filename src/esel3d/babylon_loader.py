@@ -1,4 +1,48 @@
+from IPython.core.display import display
+from IPython.display import HTML
 
+
+class BabylonLoader:
+    def __init__(self, backgroundColor=(1, 1, 1)):
+        self.backgroundColor = backgroundColor
+
+    def __header(self):
+        return("""
+		<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+        <script src="https://preview.babylonjs.com/babylon.js"></script>
+         <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
+        <script src="https://preview.babylonjs.com/materialsLibrary/babylonjs.materials.min.js"></script>
+        <script src="https://preview.babylonjs.com/proceduralTexturesLibrary/babylonjs.proceduralTextures.min.js"></script>
+        <script src="https://preview.babylonjs.com/postProcessesLibrary/babylonjs.postProcess.min.js"></script>
+        <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.js"></script>
+        <script src="https://preview.babylonjs.com/serializers/babylonjs.serializers.min.js"></script>
+       
+
+        <style>
+            html, body {
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            }
+
+            #renderCanvas {
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+                }
+        </style>
+        </head>
+        """)
+
+    def __func(self):
+        return(
+        """
+        <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
+        <script type="application/javascript">
 class DashBoard {
   constructor(props){
     this.scene = props.scene;
@@ -707,4 +751,69 @@ function locatorGUI(textColor){
 
   return {locText, locatorButton, onRadio};
 }
-export {DBControl, Axis, World, RectGridClass, Rect3D, locatorClass };
+</script>
+        """
+        )
+    def __scene(self, x):
+	    return(
+		"""
+		<canvas id="renderCanvas"></canvas>
+        <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
+        <script type="module">
+            
+
+        
+            var canvas = document.getElementById("renderCanvas");
+            const engine = new BABYLON.Engine(canvas, true);  
+            const scene = new BABYLON.Scene(engine);
+
+            const Data = %s;
+            const plotResolution = Data.plotResolution;
+            const showPlots = Data.plots;
+
+            var gridColor = new BABYLON.Color3(1, 1, 1);
+            var bgColor = new BABYLON.Color3(0,0,0);
+            var dbColor = "yellow";
+
+            if(Data.theme==="light"){
+            gridColor = new BABYLON.Color3(0, 0, 0);
+            bgColor = new BABYLON.Color3(1, 1, 1);
+            dbColor = "black";
+            }
+
+            const gridData = {
+            xmin: Data.xinitial,
+            ymin: Data.minPoint,
+            zmin: Data.yinitial,
+            xmax: Data.xfinal,
+            ymax: Data.maxPoint,
+            zmax: Data.yfinal,
+            resolution: Data.gridStep,
+            alpha: 0.5,
+            gridColor: gridColor,
+            axisData: Data.axisConfig,
+            }
+            const dz = Data.yfinal - Data.yinitial;
+
+            const worldData = {
+            cameraDist: dz,
+            backgroundColor: bgColor,
+            DBColor:dbColor,
+            title:Data.title,
+            titleWidth:Data.title.length * 12.5,
+            }
+  
+            var grid = new RectGridClass({scene,gridData});  
+            
+            for(let i = 0; i < Data.solution.length; i++){
+                showPlots.surfaceColor = [0, 0, 0];
+                showPlots.surfaceColor[i] = 0.5;
+                const solution = Data.solution[i];
+                var curve = new Rect3D({scene, solution, plotResolution, showPlots});
+                delete Data.solution[i];
+            }
+
+            var db = DBControl({scene, worldData});
+        </script>
+		""" % str(x)
+  )

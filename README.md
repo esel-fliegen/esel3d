@@ -1,8 +1,8 @@
 # esel3d
 
-[Esel3D](https://pypi.org/project/esel3d/0.1.47/) is an interactive playground to visualize math in three spatial dimensions.
+[Esel-3D](https://pypi.org/project/esel-3d/0.2/) is an interactive playground to visualize math in three spatial dimensions.
 It is a 3D plotter for curves, surfaces, shapes and more. The redering uses [BabylonJS](https://www.babylonjs.com/) 
-game engine to produce vibrant visuals and provides intuitive controls right inside a
+game engine to produce vibrant visuals and provides intuitive controls right inside a Jupyter Notebook or
 Google Colab cell. 
 
 ### Install
@@ -11,7 +11,6 @@ Google Colab cell.
 #in the first Colab cell
 !pip install esel3d
 
-*esel3d will also work with a local Jupyter notebook but with extra configuration. However, it's a bit hacky. Once I find a permanent solution, I'll update. 
 ```
 
 ### Example Usage

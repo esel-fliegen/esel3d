@@ -2,111 +2,10 @@ from IPython.core.display import display
 from IPython.display import HTML
 
 import numpy as np
-
-class BLoader:
-    def __init__(self, backgroundColor=(1, 1, 1)):
-        self.backgroundColor = backgroundColor
-
-    def __header(self):
-        return("""
-		<head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
-        <script src="https://preview.babylonjs.com/babylon.js"></script>
-         <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
-        <script src="https://preview.babylonjs.com/materialsLibrary/babylonjs.materials.min.js"></script>
-        <script src="https://preview.babylonjs.com/proceduralTexturesLibrary/babylonjs.proceduralTextures.min.js"></script>
-        <script src="https://preview.babylonjs.com/postProcessesLibrary/babylonjs.postProcess.min.js"></script>
-        <script src="https://preview.babylonjs.com/loaders/babylonjs.loaders.js"></script>
-        <script src="https://preview.babylonjs.com/serializers/babylonjs.serializers.min.js"></script>
-       
-
-        <style>
-            html, body {
-            overflow: hidden;
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            }
-
-            #renderCanvas {
-            width: 100%;
-            height: 100%;
-            touch-action: none;
-                }
-        </style>
-        </head>
-        """)
-
-    def __scene(self, x):
-	    return(
-		"""
-		<canvas id="renderCanvas"></canvas>
-        <script src="https://preview.babylonjs.com/gui/babylon.gui.min.js"></script>
-        <script type="module">
-            
-        import {DBControl, Axis, World, RectGridClass, Rect3D, locatorClass} from 'https://cdn.jsdelivr.net/gh/esel-fliegen/esel3d@0.1.49/src/esel3d/esel3d.js';
-        
-            var canvas = document.getElementById("renderCanvas");
-            const engine = new BABYLON.Engine(canvas, true);  
-            const scene = new BABYLON.Scene(engine);
-
-            const Data = %s;
-            const plotResolution = Data.plotResolution;
-            const showPlots = Data.plots;
-
-            var gridColor = new BABYLON.Color3(1, 1, 1);
-            var bgColor = new BABYLON.Color3(0,0,0);
-            var dbColor = "yellow";
-
-            if(Data.theme==="light"){
-            gridColor = new BABYLON.Color3(0, 0, 0);
-            bgColor = new BABYLON.Color3(1, 1, 1);
-            dbColor = "black";
-            }
-
-            const gridData = {
-            xmin: Data.xinitial,
-            ymin: Data.minPoint,
-            zmin: Data.yinitial,
-            xmax: Data.xfinal,
-            ymax: Data.maxPoint,
-            zmax: Data.yfinal,
-            resolution: Data.gridStep,
-            alpha: 0.5,
-            gridColor: gridColor,
-            axisData: Data.axisConfig,
-            }
-            const dz = Data.yfinal - Data.yinitial;
-
-            const worldData = {
-            cameraDist: dz,
-            backgroundColor: bgColor,
-            DBColor:dbColor,
-            title:Data.title,
-            titleWidth:Data.title.length * 12.5,
-            }
-  
-            var grid = new RectGridClass({scene,gridData});  
-            
-            for(let i = 0; i < Data.solution.length; i++){
-                showPlots.surfaceColor = [0, 0, 0];
-                showPlots.surfaceColor[i] = 0.5;
-                const solution = Data.solution[i];
-                var curve = new Rect3D({scene, solution, plotResolution, showPlots});
-                delete Data.solution[i];
-            }
-
-            var db = DBControl({scene, worldData});
-        </script>
-		""" % str(x)
-  )
+from babylon_loader import BabylonLoader
 
 
-
-
-class plot3d(BLoader):
+class plot3d(BabylonLoader):
     """
     Main injection class for esel3D
     
@@ -251,7 +150,8 @@ class plot3d(BLoader):
         self.__zGridStep=1
         self.__isPolar=0
         self.__data = {}
-        display(HTML(self._BLoader__header()))
+        display(HTML(self._BabylonLoader__header()))
+        display(HTML(self._BabylonLoader__func()))
 
     def __del__(self):
         print("plot3d deleted.")
@@ -259,7 +159,7 @@ class plot3d(BLoader):
     def plot(self):
         """Retrieve parameters, default or user defined, and plot the graph."""
         self.__getParameters()
-        display(HTML(self._BLoader__scene(self.__data)))
+        display(HTML(self._BabylonLoader__scene(self.__data)))
         del self.__solution
 
     def theme(self, theme="dark"):
